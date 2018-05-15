@@ -25,6 +25,14 @@ class CheminfoMolhandleWampApi(object):
             from_file=config['from_file'],
             toolkit=config['toolkit'])
 
+    @staticmethod
+    def create_output_file(request):
+        """Generate an output file if requested """
+        if not request["to_file"]:
+            return None
+        else:
+            return os.path.join(request['workdir'], 'structure.{0}'.format(request['output_format']))
+
     def convert_structures(self, request, claims):
         """
         Convert input file format to a different format. For a detailed
@@ -34,10 +42,7 @@ class CheminfoMolhandleWampApi(object):
            lie_structures/schemas/endpoints/convert_response_v1.json
         """
         molobject = self.read_mol(request)
-
-        file_path = None
-        if 'workdir' in request:
-            file_path = os.path.join(request['workdir'], 'structure.{0}'.format(request['output_format']))
+        file_path = self.create_output_file(request)
 
         outfmt = request.get('output_format', request['input_format'])
         output = mol_write(molobject, mol_format=outfmt, file_path=file_path)
@@ -61,11 +66,7 @@ class CheminfoMolhandleWampApi(object):
             correctForPH=request['correctForPH'],
             pH=request['pH'])
 
-        if 'workdir' in request:
-            file_path = os.path.join(request['workdir'], 'structure.{0}'.format(request['input_format']))
-        else:
-            file_path = None
-
+        file_path = self.create_output_file(request)
         outfmt = request.get('output_format', request['input_format'])
         output = mol_write(molobject, mol_format=outfmt, file_path=file_path)
 
@@ -83,10 +84,7 @@ class CheminfoMolhandleWampApi(object):
            lie_structures/schemas/endpoints/removeh_response_v1.json
         """
         molobject = mol_removeh(self.read_mol(request))
-
-        file_path = None
-        if 'workdir' in request:
-            file_path = os.path.join(request['workdir'], 'structure.{0}'.format(request['input_format']))
+        file_path = self.create_output_file(request)
 
         outfmt = request.get('output_format', request['input_format'])
         output = mol_write(molobject, mol_format=outfmt, file_path=file_path)
@@ -111,10 +109,7 @@ class CheminfoMolhandleWampApi(object):
             localopt=request['localopt'],
             steps=request['steps'])
 
-        file_path = None
-        if 'workdir' in request:
-            file_path = os.path.join(request['workdir'], 'structure.{0}'.format(request['input_format']))
-
+        file_path = self.create_output_file(request)
         outfmt = request.get('output_format', request['input_format'])
         output = mol_write(molobject, mol_format=outfmt, file_path=file_path)
 
