@@ -28,7 +28,7 @@ class CheminfoMolhandleWampApi(object):
     @staticmethod
     def create_output_file(request):
         """Generate an output file if requested """
-        if not request["to_file"]:
+        if not request.get("to_file", True):
             return None
         else:
             return os.path.join(request['workdir'], 'structure.{0}'.format(request['output_format']))

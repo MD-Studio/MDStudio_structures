@@ -1,0 +1,33 @@
+sudo: false
+language: generic
+
+os:
+ - linux
+
+global:
+  env:
+    - COMMIT_AUTHOR_EMAIL: "f.zapata@esciencecenter.nl"
+
+install:
+  # install miniconda
+  - wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh -O miniconda.sh
+  - bash miniconda.sh -b -p $HOME/miniconda
+  - export PATH="$HOME/miniconda/bin:$PATH"
+  - hash -r
+  - conda config --set always_yes yes --set changeps1 no --set auto_update_conda False
+
+  # install dependencies
+  - (git clone git://github.com/MD-Studio/MDStudio.git --branch v1 --single-branch && pip install -e MDStudio/mdstudio)
+  - conda install -c rdkit rdkit
+  - conda install -c openbabel openbabel 
+  - pip install "https://github.com/cinfony/cinfony/tarball/master#egg=cinfony-1.2"
+  
+  # install library
+  - pip install .[test]
+  
+script:
+  - (cd test && coverage run -m unittest discover -vvv)
+
+branches:
+  only:
+    - master
