@@ -14,7 +14,6 @@ DOI: 10.1021/ci400127q
 """
 
 import os
-import logging
 
 from rdkit import Chem
 from pydpi.drug import getmol, fingerprint
@@ -100,7 +99,7 @@ def readfile(format, filename):
     :type filename:  :py:str
     """
     if not os.path.isfile(filename):
-        raise IOError, "No such file: '%s'" % filename
+        raise IOError("No such file: '%s'" % filename)
     format = format.lower()
     # Eagerly evaluate the supplier functions in order to report
     # errors in the format and errors in opening the file.
@@ -173,7 +172,7 @@ class Molecule(RdkMolecule):
         if descnames:
             non_avail = [d for d in descnames if d not in calc_desc]
             if non_avail:
-                logging.error('PyDPI descriptors not available: {0}'.format(','.join(non_avail)))
+                print('PyDPI descriptors not available: {0}'.format(','.join(non_avail)))
             return dict([(d, calc_desc[d]) for d in descnames])
 
         return calc_desc

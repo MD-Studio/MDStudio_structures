@@ -1,5 +1,8 @@
 # -*- coding: utf-8 -*-
 
+from __future__ import print_function
+
+
 """
 file: cheminfo_pkgmanager.py
 
@@ -149,9 +152,6 @@ import collections
 import importlib
 
 from retrying import retry
-from twisted.logger import Logger
-
-logging = Logger()
 
 # Cheminformatics packages supported by cheminfo, the order matters!
 SUPPORTED_PACKAGES = ('webel', 'silverwebel', 'pybel', 'jchem', 'cdk', 'indy', 'opsin', 'rdk', 'pydpi')
@@ -181,11 +181,11 @@ class CinfonyPackageManager(collections.MutableMapping):
         for package in SUPPORTED_PACKAGES:
             self._import_pkg(package, package_config)
 
-        logging.info('Imported packages: {0}'.format(', '.join(self.keys())))
+        print('Imported packages: {0}'.format(', '.join(self.keys())))
         not_imported = [p for p in SUPPORTED_PACKAGES if p not in self]
         if not_imported:
-            logging.info('Packages not imported: {0}. Check the installation instructions '
-                         'if this was unexpected'.format(', '.join(not_imported)))
+            print('Packages not imported: {0}. Check the installation instructions '
+                  'if this was unexpected'.format(', '.join(not_imported)))
 
     def __setitem__(self, key, value):
         self.__dict__[key] = value
@@ -218,7 +218,7 @@ class CinfonyPackageManager(collections.MutableMapping):
         path = '{0}_path'.format(package)
         if path in package_config:
             if not os.path.exists(package_config[path]):
-                logging.error('No such path to package {0}: {1}'.format(package, package_config[path]))
+                print('No such path to package {0}: {1}'.format(package, package_config[path]))
                 return
             if path not in sys.path:
                 sys.path.append(package_config[path])
@@ -229,7 +229,7 @@ class CinfonyPackageManager(collections.MutableMapping):
 
             # RDKit needed for pydpi
             if 'rdk' not in self:
-                logging.info('Cannot load PyDPI, RDKit not available')
+                print('Cannot load PyDPI, RDKit not available')
                 return
             package_name = 'cheminfo_pydpi'
 
@@ -237,10 +237,10 @@ class CinfonyPackageManager(collections.MutableMapping):
         try:
             self[package] = importlib.import_module(package_name)
         except ImportError as e:
-            logging.debug('Import error for package {0}: {1}'.format(package, e))
+            print('Import error for package {0}: {1}'.format(package, e))
         except SyntaxError as e:
-            logging.error('Syntax error on import of package {0}: {1}'.format(package, e))
+            print('Syntax error on import of package {0}: {1}'.format(package, e))
         except KeyError as e:
-            logging.error('Package {0}: not found.'.format(package))
+            print('Package {0}: not found.'.format(package))
         except:
-            logging.error('Unexpected error for package {0}: {1}'.format(package, sys.exc_info()[0]))
+            print('Unexpected error for package {0}: {1}'.format(package, sys.exc_info()[0]))

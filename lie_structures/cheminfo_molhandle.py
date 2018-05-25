@@ -7,12 +7,7 @@ Cinfony driven cheminformatics molecule read, write and manipulate functions
 """
 
 import os
-
-from twisted.logger import Logger
-
 from . import toolkits
-
-logging = Logger()
 
 
 def mol_read(
@@ -23,7 +18,7 @@ def mol_read(
 
     toolkit_driver = toolkits.get(toolkit)
     if not toolkit_driver:
-        logging.error('Cheminformatics toolkit {0} not active'.format(toolkit))
+        print('Cheminformatics toolkit {0} not active'.format(toolkit))
         return
 
     # Get molecular file format from file extension if path
@@ -32,7 +27,7 @@ def mol_read(
 
     # Is the file format supported by the toolkit
     if mol_format not in toolkit_driver.informats:
-        logging.error('Molecular input file format "{0}" not supported by {1}'.format(mol_format, toolkit))
+        print('Molecular input file format "{0}" not supported by {1}'.format(mol_format, toolkit))
         return
 
     try:
@@ -41,7 +36,7 @@ def mol_read(
         else:
             molobject = toolkit_driver.readstring(mol_format, mol)
     except IOError, e:
-        logging.error(e)
+        print(e)
         return
 
     # Set the molecular title to something meaningful
@@ -61,12 +56,12 @@ def mol_write(molobject, mol_format=None, file_path=None):
 
     toolkit_driver = toolkits.get(molobject.toolkit)
     if not toolkit_driver:
-        logging.error('Cheminformatics toolkit {0} not active'.format(molobject.toolkit))
+        print('Cheminformatics toolkit {0} not active'.format(molobject.toolkit))
         return
 
     mol_format = mol_format or getattr(molobject, 'mol_format', None)
     if mol_format not in toolkit_driver.outformats:
-        logging.error('Molecular output file format "{0}" not supported by {1}'.format(mol_format, molobject.toolkit))
+        print('Molecular output file format "{0}" not supported by {1}'.format(mol_format, molobject.toolkit))
         return
 
     output = molobject.write(mol_format, file_path, overwrite=True)
@@ -94,7 +89,7 @@ def mol_attributes(molobject):
 def mol_addh(molobject, polaronly=False, correctForPH=False, pH=7.4):
 
     if molobject.toolkit == 'pybel':
-        logging.info(
+        print(
             'Add hydrogens. Toolkit: {0}, only polar: {1}, correct pH: {2}, pH: {3}'.format(molobject.toolkit, polaronly, correctForPH, pH))
         molobject.OBMol.AddHydrogens(polaronly, correctForPH, pH)
     else:
@@ -107,7 +102,7 @@ def mol_removeh(molobject):
     """
     Remove hydrogens from the structure
     """
-    logging.info(
+    print(
         'Remove hydrogen atoms from structure: {0}'.format(molobject.title))
     molobject.removeh()
 
@@ -137,11 +132,11 @@ def mol_make3D(molobject, forcefield='mmff94', localopt=True, steps=50):
 
         # If truely 3D, the sum of all dimensions should be larger than 0
         if all(dim > 0 for dim in coord_sum):
-            logging.info('Molecule {0} already in 3D'.format(molobject.title))
+            print('Molecule {0} already in 3D'.format(molobject.title))
             return molobject
 
     if molobject.toolkit in ('cdk', 'webel'):
-        logging.error(
+        print(
             'Conversion to 3D coordinate set not supported by {0} toolkit'.format(molobject.toolkit))
         return None
 
@@ -158,7 +153,7 @@ def mol_rotate(molobject, vector=[0, 0, 0, 0]):
     """
 
     if molobject.toolkit != 'pybel':
-        logging.error('Rotation only supported by OpenBabel Pybel object')
+        print('Rotation only supported by OpenBabel Pybel object')
         return
 
     toolkit_driver = toolkits.get(molobject.toolkit)
@@ -201,7 +196,7 @@ def mol_combine_rotations(molobject, rotations=[]):
         mol = mol_copy(molobject)
         mol = mol_rotate(mol, vector=i)
         rotated_mols.append(mol)
-        logging.debug("Rotating x,y,z,angle {0}".format(i))
+        print("Rotating x,y,z,angle {0}".format(i))
 
     # Combine rotated structure into new file
     toolkit_driver = toolkits.get(molobject.toolkit)

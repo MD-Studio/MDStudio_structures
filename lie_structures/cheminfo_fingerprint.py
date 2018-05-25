@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import print_function
 
 """
 file: cheminfo_molhandle.py
@@ -7,13 +8,10 @@ Cinfony driven cheminformatics fingerprint functions
 """
 
 from itertools import combinations
-from twisted.logger import Logger
 from scipy.spatial.distance import squareform
 from numpy import array
 
 from . import toolkits
-
-logging = Logger()
 
 RDKIT_SYM_METRIC = {'tanimoto': 'TanimotoSimilarity', 'dice': 'DiceSimilarity',
                     'cosine': 'CosineSimilarity', 'sokal': 'SokalSimilarity',
@@ -52,21 +50,21 @@ def mol_fingerprint(molobject, fp=None):
 
     afp = available_fingerprints()
     if molobject.toolkit not in afp:
-        logging.error('No fingerprint methods supported by toolkit {0}'.format(molobject.toolkit))
+        print('No fingerprint methods supported by toolkit {0}'.format(molobject.toolkit))
         return
 
     if fp:
         if fp not in afp[molobject.toolkit]:
-            logging.error('Fingerprint methods {0} not supported by toolkit {1}'.format(
+            print('Fingerprint methods {0} not supported by toolkit {1}'.format(
                 afp, molobject.toolkit))
             return
 
-        logging.info('Calculate {0} fingerprint using toolkit {1}'.format(fp, molobject.toolkit))
+        print('Calculate {0} fingerprint using toolkit {1}'.format(fp, molobject.toolkit))
         fpobj = molobject.calcfp(fp)
 
         return fpobj
 
-    logging.info('Calculate fingerprint using toolkit {0}'.format(molobject.toolkit))
+    print('Calculate fingerprint using toolkit {0}'.format(molobject.toolkit))
     fpobj = molobject.calcfp()
 
     return fpobj
@@ -102,7 +100,7 @@ def mol_fingerprint_comparison(u, v, toolkit, metric='tanimoto'):
         metric = getattr(rdkit.Chem.DataStructs, RDKIT_SYM_METRIC[metric])
         return rdkit.Chem.DataStructs.FingerprintSimilarity(u.fp, v.fp, metric=metric)
 
-    logging.error('Fingerprint comparison metric {0} not supported by toolkit {1}'.format(metric, toolkit))
+    print('Fingerprint comparison metric {0} not supported by toolkit {1}'.format(metric, toolkit))
 
 
 def mol_fingerprint_pairwise_similarity(fps, toolkit, metric='tanimoto'):

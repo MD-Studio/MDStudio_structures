@@ -6,9 +6,12 @@ Unit tests for the Open Babel methods
 
 import unittest2
 import filecmp
+import os
 
-from lie_structures import toolkits
-from lie_structures.cheminfo_molhandle import *
+from lie_structures.cheminfo_pkgmanager import CinfonyPackageManager
+from lie_structures.cheminfo_molhandle import (mol_addh, mol_make3D, mol_read, mol_removeh, mol_write)
+
+toolkits = CinfonyPackageManager({})
 
 
 class _CheminfoMolhandleBase(object):
@@ -31,7 +34,7 @@ class _CheminfoMolhandleBase(object):
 
         Read structure files for docking
         """
-        
+
         with open(os.path.join(cls.currpath, '../files/ligand.mol2'), 'r') as lfile:
             cls.ligand = lfile.read()
 
@@ -40,7 +43,7 @@ class _CheminfoMolhandleBase(object):
         tearDown method called after each unittest to cleanup
         the working directory
         """
-        
+
         for tmp_file in self.tmp_files:
             if os.path.exists(tmp_file):
                 os.remove(tmp_file)
@@ -54,7 +57,7 @@ class _CheminfoMolhandleBase(object):
         self.assertNotEqual(len(toolkit.informats.keys()), 0)
         self.assertNotEqual(len(toolkit.outformats.keys()), 0)
 
-        if not self.toolkit_name in ('opsin', 'indy', 'webel'):
+        if self.toolkit_name not in ('opsin', 'indy', 'webel'):
             self.assertNotEqual(len(toolkit.descs), 0)
             self.assertNotEqual(len(toolkit.forcefields), 0)
 
@@ -70,8 +73,9 @@ class _CheminfoMolhandleBase(object):
             if molformat in toolkits[self.toolkit_name].informats:
 
                 # Explicit import, format defined
-                mol = mol_read(self.formatexamples[molformat], mol_format=molformat, from_file=True,
-                               toolkit=self.toolkit_name)
+                mol = mol_read(
+                    self.formatexamples[molformat], mol_format=molformat, from_file=True,
+                    toolkit=self.toolkit_name)
                 self.assertEqual(len(mol.atoms), 21)
                 self.assertAlmostEqual(mol.molwt, 180.1574, places=4)
 
@@ -79,14 +83,15 @@ class _CheminfoMolhandleBase(object):
                 mol = mol_read(self.formatexamples[molformat], from_file=True, toolkit=self.toolkit_name)
                 self.assertEqual(len(mol.atoms), 21)
                 self.assertAlmostEqual(mol.molwt, 180.1574, places=4)
-    
+
     def test_readfile_unsupported(self):
         """
         Test importing of structure files with wrong format
         """
-        
-        self.assertIsNone(mol_read(self.ligand, mol_format='non', from_file=True, toolkit=self.toolkit_name))
-        self.assertIsNone(mol_read('/path/not/exist', from_file=True, toolkit=self.toolkit_name))
+        self.assertIsNone(
+            mol_read(self.ligand, mol_format='non', from_file=True, toolkit=self.toolkit_name))
+        self.assertIsNone(
+            mol_read('/path/not/exist', from_file=True, toolkit=self.toolkit_name))
 
     def test_readstring(self):
         """
@@ -95,14 +100,14 @@ class _CheminfoMolhandleBase(object):
 
         for molformat, infile in self.formatexamples.items():
             if molformat in toolkits[self.toolkit_name].informats:
-                 if molformat in ('sdf', 'mol', 'mol2', 'cml'):
-                     with open(infile, 'r') as lfile:
-                         mol = mol_read(lfile.read(), mol_format=molformat, toolkit=self.toolkit_name)
-                 else:
+                if molformat in ('sdf', 'mol', 'mol2', 'cml'):
+                    with open(infile, 'r') as lfile:
+                        mol = mol_read(lfile.read(), mol_format=molformat, toolkit=self.toolkit_name)
+                else:
                     mol = mol_read(infile, mol_format=molformat, toolkit=self.toolkit_name)
 
-                 # Opsin has no molwt property:
-                 if not self.toolkit_name == 'opsin':
+                # Opsin has no molwt property:
+                if not self.toolkit_name == 'opsin':
                     self.assertAlmostEqual(mol.molwt, 180.1574, places=4)
 
     def test_conversion(self):
@@ -110,11 +115,11 @@ class _CheminfoMolhandleBase(object):
         Test convert from acetylsaliclyic acid to INCHI and SMILES
         """
 
-        for f,v in self.informats.items():
+        for f, v in self.informats.items():
 
             mol = mol_read(v, mol_format=f, toolkit=self.toolkit_name)
 
-            for a,b in self.outformats.items():
+            for a, b in self.outformats.items():
                 self.assertEqual(mol_write(mol, mol_format=a), b)
 
     def test_readstring_noconversion(self):
@@ -196,6 +201,7 @@ class CheminfoPybelMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
                   'inchi': 'InChI=1/C6H6/c1-2-4-6-5-3-1/h1-6H',
                   'inchikey': 'UHOVQNZJYSORNB-UHFFFAOYNA-N',
                   'can': 'c1ccccc1'}
+
 
 @unittest2.skipIf('rdk' not in toolkits, "RDKit software not available.")
 class CheminfoRDkitMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
