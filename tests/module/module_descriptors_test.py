@@ -23,15 +23,13 @@ class _CheminfoDescriptorBase(object):
         """
         Import a few structures
         """
-
-        for a,b in TEST_FILES.items():
+        for a, b in TEST_FILES.items():
             cls.test_structures[a] = mol_read(a, mol_format=b, toolkit=cls.toolkit_name)
 
     def test_descriptor(self):
         """
         Test generation of all descriptors
         """
-
         for struc, molobject in self.test_structures.items():
             if self.toolkit_name in AVAIL_DESC:
                 desc = molobject.calcdesc()
@@ -55,12 +53,11 @@ class CheminfoPybelDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase):
                 'CC(Oc1ccccc1C(O)=O)=O': 24}
 
 
-@unittest2.skipIf('rdk' not in AVAIL_DESC, "RDKit software not available or no desc.")
-class CheminfoRDkitDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase):
-
-    toolkit_name = 'rdk'
-    gen_desc = {'c1(cccnc1Nc1cc(ccc1)C(F)(F)F)C(=O)O': 200,
-                'CC(Oc1ccccc1C(O)=O)=O': 200}
+# @unittest2.skipIf('rdk' not in AVAIL_DESC, "RDKit software not available or no desc.")
+# class CheminfoRDkitDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase):
+#     toolkit_name = 'rdk'
+#     gen_desc = {'c1(cccnc1Nc1cc(ccc1)C(F)(F)F)C(=O)O': 200,
+#                 'CC(Oc1ccccc1C(O)=O)=O': 200}
 
 
 @unittest2.skipIf('cdk' not in AVAIL_DESC, "CDK software not available or no desc.")
