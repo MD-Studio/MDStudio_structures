@@ -17,7 +17,7 @@ install:
   - conda config --set always_yes yes --set changeps1 no --set auto_update_conda False
 
   # install dependencies
-  - (git clone git://github.com/MD-Studio/MDStudio.git --branch v1 --single-branch && pip install -e MDStudio/mdstudio)
+  - (git clone git://github.com/MD-Studio/MDStudio.git --branch master --single-branch && pip install -e MDStudio/mdstudio)
   - conda install -c rdkit rdkit
   - conda install -c openbabel openbabel 
   - pip install "https://github.com/cinfony/cinfony/tarball/master#egg=cinfony-1.2"
