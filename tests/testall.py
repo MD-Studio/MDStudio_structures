@@ -316,7 +316,7 @@ class TestOBabel(TestToolkit):
 
 
 class TestRDKit(TestToolkit):
-    toolkit = rdk
+    toolkit = "rdk"
     tanimotoresult = 1/3.
     Natoms = 9
     tpsaname = "TPSA"
@@ -329,7 +329,7 @@ class TestRDKit(TestToolkit):
 
 
 class TestIndigo(TestToolkit):
-    toolkit = indy
+    toolkit = "indy"
     tanimotoresult = 1/3.
     Natoms = 15
     tpsaname = "TPSA"
@@ -361,7 +361,7 @@ class TestIndigo(TestToolkit):
 
 
 class TestWebel(TestToolkit):
-    toolkit = webel
+    toolkit = "webel"
     tanimotoresult = 0.375
     Natoms = 9
     tpsaname = "TPSADescriptor_TopoPSA"
@@ -497,7 +497,7 @@ $$$$"""
 
 
 class TestCDK(TestToolkit):
-    toolkit = cdk
+    toolkit = "cdk"
     tanimotoresult = 0.375
     Natoms = 15
     tpsaname = "tpsa"
@@ -522,7 +522,7 @@ class TestCDK(TestToolkit):
 
 
 class TestJchem(TestToolkit):
-    toolkit = jchem
+    toolkit = "jchem"
     tanimotoresult = 0.444
     Natoms = 15
     tpsaname = "TPSA"
@@ -540,3 +540,7 @@ class TestJchem(TestToolkit):
         self.assertAlmostEqual(self.mols[0].molwt, 58.12, 2)
         self.assertEqual(len(self.mols[0].atoms), 4)
         self.assertRaises(AttributeError, self.RSaccesstest)
+
+
+if __name__ == '__main__':
+    unittest2.main()

@@ -5,7 +5,6 @@ file: wamp_services.py
 
 WAMP service methods the module exposes.
 """
-
 import os
 import tempfile
 
