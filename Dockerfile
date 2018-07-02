@@ -1,6 +1,6 @@
 
 # Install all the cheminformatic packages
-FROM mdstudio/mdstudio_docker_conda:0.0.2
+FROM mdstudio/mdstudio_docker_conda:0.0.3
 
 RUN apt-get update -y && apt-get install swig wget gcc g++ gfortran cmake libxrender-dev -y
 
