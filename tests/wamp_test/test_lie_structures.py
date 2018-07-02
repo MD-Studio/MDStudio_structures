@@ -145,55 +145,54 @@ class Run_structures(ComponentSession):
 
     @chainable
     def on_run(self):
-        with self.group_context('mdgroup'):
-            toolkits = yield self.call(
-                "mdgroup.lie_structures.endpoint.supported_toolkits",
-                {})
-            assert "pybel" in toolkits["toolkits"]
-            print("toolkits available: {}".format(toolkits['toolkits']))
+        toolkits = yield self.call(
+            "mdgroup.lie_structures.endpoint.supported_toolkits",
+            {})
+        assert "pybel" in toolkits["toolkits"]
+        print("toolkits available: {}".format(toolkits['toolkits']))
 
-            convert = yield self.call(
-                "mdgroup.lie_structures.endpoint.convert", dict_convert)
-            print(convert)
-            assert compare_molecules(convert['mol'], join(root, 'files/structure.mol2'))
-            print("converting {} from smile to mol2 succeeded!".format(
-                dict_convert['mol']))
+        convert = yield self.call(
+            "mdgroup.lie_structures.endpoint.convert", dict_convert)
+        print(convert)
+        assert compare_molecules(convert['mol'], join(root, 'files/structure.mol2'))
+        print("converting {} from smile to mol2 succeeded!".format(
+            dict_convert['mol']))
 
-            dict_make3d['mol'] = copy_to_workdir(dict_make3d['mol'], dict_make3d['workdir'])
-            make3d = yield self.call(
-                "mdgroup.lie_structures.endpoint.make3d", dict_make3d)
-            # assert compare_molecules(make3d['mol'], join(root, 'files/structure3D.mol2'), atol=1e-2)
-            print(make3d)
-            print("successful creation of a 3D structure for {}".format(
-                dict_convert['mol']))
+        dict_make3d['mol'] = copy_to_workdir(dict_make3d['mol'], dict_make3d['workdir'])
+        make3d = yield self.call(
+            "mdgroup.lie_structures.endpoint.make3d", dict_make3d)
+        # assert compare_molecules(make3d['mol'], join(root, 'files/structure3D.mol2'), atol=1e-2)
+        print(make3d)
+        print("successful creation of a 3D structure for {}".format(
+            dict_convert['mol']))
 
-            dict_addh['mol'] = copy_to_workdir(dict_addh['mol'], dict_addh['workdir'])
-            addh = yield self.call(
-                "mdgroup.lie_structures.endpoint.addh", dict_addh)
-            print(addh)
-            assert compare_molecules(addh['mol'], join(root, 'files/structureHs.mol2'))
-            print("added hydrogens sucessfully!")
+        dict_addh['mol'] = copy_to_workdir(dict_addh['mol'], dict_addh['workdir'])
+        addh = yield self.call(
+            "mdgroup.lie_structures.endpoint.addh", dict_addh)
+        print(addh)
+        assert compare_molecules(addh['mol'], join(root, 'files/structureHs.mol2'))
+        print("added hydrogens sucessfully!")
 
-            dict_info['mol'] = copy_to_workdir(dict_info['mol'], dict_info['workdir'])
-            info = yield self.call(
-                "mdgroup.lie_structures.endpoint.info", dict_info)
-            print("info", info)
-            atts = info['attributes']
-            assert all((
-                atts['formula'] == 'C7H12O2', atts['exactmass'] - 128.083729624 < 1e-5))
-            print('attributes information successfully retrieved!')
+        dict_info['mol'] = copy_to_workdir(dict_info['mol'], dict_info['workdir'])
+        info = yield self.call(
+            "mdgroup.lie_structures.endpoint.info", dict_info)
+        print("info", info)
+        atts = info['attributes']
+        assert all((
+            atts['formula'] == 'C7H12O2', atts['exactmass'] - 128.083729624 < 1e-5))
+        print('attributes information successfully retrieved!')
 
-            dict_rotate['mol'] = copy_to_workdir(dict_rotate['mol'], dict_info['workdir'])
-            rotate = yield self.call(
-                "mdgroup.lie_structures.endpoint.rotate", dict_rotate)
-            print("rotate: ", rotate)
-            assert compare_molecules(rotate['mol'], join(root, 'files/rotations.mol2'))
-            print("rotatation method succeeded!")
+        dict_rotate['mol'] = copy_to_workdir(dict_rotate['mol'], dict_info['workdir'])
+        rotate = yield self.call(
+            "mdgroup.lie_structures.endpoint.rotate", dict_rotate)
+        print("rotate: ", rotate)
+        assert compare_molecules(rotate['mol'], join(root, 'files/rotations.mol2'))
+        print("rotatation method succeeded!")
 
-            similarity = yield self.call(
-                "mdgroup.lie_structures.endpoint.chemical_similarity",
-                dict_similarity)
-            print("similarity: ", similarity)
+        similarity = yield self.call(
+            "mdgroup.lie_structures.endpoint.chemical_similarity",
+            dict_similarity)
+        print("similarity: ", similarity)
 
 
 if __name__ == "__main__":
