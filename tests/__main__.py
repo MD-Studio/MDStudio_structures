@@ -29,8 +29,10 @@ def module_test_suite():
     testpath = os.path.join(os.path.dirname(__file__), 'module')
     suite = loader.discover(testpath, pattern='module_*.py')
     runner = unittest2.TextTestRunner(verbosity=2)
-    runner.run(suite)
+
+    return runner.run(suite).wasSuccessful()
 
 
 if __name__ == '__main__':
-    module_test_suite()
+    result = module_test_suite()
+    sys.exit(not result)
