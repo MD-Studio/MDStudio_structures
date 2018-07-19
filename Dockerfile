@@ -11,7 +11,9 @@ RUN chown mdstudio:mdstudio /home/mdstudio/lie_structures
 RUN conda install -c openbabel openbabel && \
     conda install -c bioconda java-jdk && \
     conda install -c conda-forge jpype1 && \
-    conda install -c speleo3 indigo 
+    conda install -c speleo3 indigo && \
+    conda install -c rdkit rdkit=="2018.03.2.0" && \
+    conda install -c conda py-boost=="1.65.1"
 
 RUN pip install pydpi
 

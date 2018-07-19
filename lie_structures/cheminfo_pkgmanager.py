@@ -228,7 +228,7 @@ class CinfonyPackageManager(collections.MutableMapping):
         if package == 'pydpi':
 
             # RDKit needed for pydpi
-            if 'rdk' not in self:
+            if 'rdkit' not in self:
                 print('Cannot load PyDPI, RDKit not available')
                 return
             package_name = 'cheminfo_pydpi'
