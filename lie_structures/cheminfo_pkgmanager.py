@@ -154,7 +154,7 @@ import importlib
 from retrying import retry
 
 # Cheminformatics packages supported by cheminfo, the order matters!
-SUPPORTED_PACKAGES = ('webel', 'silverwebel', 'pybel', 'jchem', 'cdk', 'indy', 'opsin', 'rdk', 'pydpi')
+SUPPORTED_PACKAGES = ('webel', 'silverwebel', 'pybel', 'jchem', 'cdk', 'indy', 'opsin', 'rdkit', 'pydpi')
 
 
 def retry_if_Index_Exception(exception):
