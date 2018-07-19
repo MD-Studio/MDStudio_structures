@@ -154,7 +154,7 @@ import importlib
 from retrying import retry
 
 # Cheminformatics packages supported by cheminfo, the order matters!
-SUPPORTED_PACKAGES = ('webel', 'silverwebel', 'pybel', 'jchem', 'cdk', 'indy', 'opsin', 'rdkit', 'pydpi')
+SUPPORTED_PACKAGES = ('webel', 'silverwebel', 'pybel', 'jchem', 'cdk', 'indy', 'opsin', 'rdk', 'pydpi')
 
 
 def retry_if_Index_Exception(exception):
@@ -228,7 +228,7 @@ class CinfonyPackageManager(collections.MutableMapping):
         if package == 'pydpi':
 
             # RDKit needed for pydpi
-            if 'rdkit' not in self:
+            if 'rdk' not in self:
                 print('Cannot load PyDPI, RDKit not available')
                 return
             package_name = 'cheminfo_pydpi'
