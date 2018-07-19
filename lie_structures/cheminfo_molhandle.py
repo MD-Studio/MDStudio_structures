@@ -39,6 +39,8 @@ def mol_read(
         print(e)
         return
 
+    if isinstance(molobject, list):
+        molobject = molobject[0]
     # Set the molecular title to something meaningful
     if not getattr(molobject, 'title', None):
         molobject.title = default_mol_name
