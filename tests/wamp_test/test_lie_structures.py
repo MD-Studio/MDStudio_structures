@@ -12,7 +12,6 @@ import shutil
 file_path = os.path.realpath(__file__)
 root = os.path.split(file_path)[0]
 
-
 def create_workdir(name, path="/tmp/mdstudio/lie_structures"):
     """Create temporal workdir dir"""
     workdir = join(path, name)
