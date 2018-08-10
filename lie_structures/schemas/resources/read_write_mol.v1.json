@@ -5,16 +5,6 @@
   "description": "Config to read and write a mol",
   "type": "object",
   "properties": {
-    "from_file": {
-      "type": "boolean",
-      "description": "Read molecule from file",
-      "default": false
-    },
-    "to_file": {
-      "type": "boolean",
-      "description": "Write the molecule to a file",
-      "default": false
-    },
     "toolkit": {
       "type": "string",
       "description": "Default cheminformatics toolkit to use",

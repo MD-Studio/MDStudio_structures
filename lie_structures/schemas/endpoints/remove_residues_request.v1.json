@@ -9,11 +9,6 @@
       "type": "string",
       "description": "Molecular representation"
     },
-    "from_file": {
-      "type": "boolean",
-      "description": "Read molecule from file",
-      "default": false
-    },
     "residues": {
       "type": "array",
       "description": "Residues to remove",

@@ -8,11 +8,6 @@
       "type": "array",
       "descriptions": "Rotation Matrix"
     },
-    "from_file": {
-      "type": "boolean",
-      "description": "Read molecule from file",
-      "default": false
-    },
     "toolkit": {
       "type": "string",
       "description": "Default cheminformatics toolkit to use",

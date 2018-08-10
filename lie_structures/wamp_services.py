@@ -94,11 +94,7 @@ class StructuresWampApi(
         request['workdir'] = os.path.abspath(request['workdir'])
         # Parse the structure
         parser = PDBParser(PERMISSIVE=True)
-
-        if request.get('from_file', False):
-            struc_obj = open(request.get('mol'), 'r')
-        else:
-            struc_obj = StringIO(request.get('mol'))
+        struc_obj = StringIO(request.get('mol'))
 
         structure = parser.get_structure('mol_object', struc_obj)
         struc_obj.close()

@@ -6,8 +6,6 @@ file: wamp_services.py
 WAMP service methods the module exposes.
 """
 
-import os
-
 from lie_structures.cheminfo_molhandle import (
      mol_addh, mol_attributes, mol_make3D, mol_read, mol_removeh, mol_write, mol_combine_rotations)
 
@@ -22,16 +20,7 @@ class CheminfoMolhandleWampApi(object):
 
         return mol_read(
             config['mol'], mol_format=config['input_format'],
-            from_file=config['from_file'],
             toolkit=config['toolkit'])
-
-    @staticmethod
-    def create_output_file(request):
-        """Generate an output file if requested """
-        if not request.get("to_file", True):
-            return None
-        else:
-            return os.path.join(request['workdir'], 'structure.{0}'.format(request['output_format']))
 
     def convert_structures(self, request, claims):
         """
