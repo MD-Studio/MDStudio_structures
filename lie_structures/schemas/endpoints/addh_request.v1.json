@@ -17,7 +17,7 @@
     },
     "mol": {
       "type": "string",
-      "description": "Moleculare file"
+      "description": "Molecular representation"
     },
     "input_format": {
       "type": "string",

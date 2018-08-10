@@ -6,11 +6,8 @@
   "type": "object",
   "properties": {
     "mol": {
-      "type": [
-        "string",
-        "object"
-      ],
-      "description": "Moleculare file"
+      "type": "string",
+      "description": "Molecular representation"
     },
     "from_file": {
       "type": "boolean",

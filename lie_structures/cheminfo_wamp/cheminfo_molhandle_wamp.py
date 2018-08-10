@@ -42,10 +42,9 @@ class CheminfoMolhandleWampApi(object):
            lie_structures/schemas/endpoints/convert_response_v1.json
         """
         molobject = self.read_mol(request)
-        file_path = self.create_output_file(request)
 
         outfmt = request.get('output_format', request['input_format'])
-        output = mol_write(molobject, mol_format=outfmt, file_path=file_path)
+        output = mol_write(molobject, mol_format=outfmt, file_path=None)
 
         # Update session
         status = 'completed'
@@ -66,9 +65,8 @@ class CheminfoMolhandleWampApi(object):
             correctForPH=request['correctForPH'],
             pH=request['pH'])
 
-        file_path = self.create_output_file(request)
         outfmt = request.get('output_format', request['input_format'])
-        output = mol_write(molobject, mol_format=outfmt, file_path=file_path)
+        output = mol_write(molobject, mol_format=outfmt, file_path=None)
 
         # Update session
         status = 'completed'
@@ -84,10 +82,9 @@ class CheminfoMolhandleWampApi(object):
            lie_structures/schemas/endpoints/removeh_response_v1.json
         """
         molobject = mol_removeh(self.read_mol(request))
-        file_path = self.create_output_file(request)
 
         outfmt = request.get('output_format', request['input_format'])
-        output = mol_write(molobject, mol_format=outfmt, file_path=file_path)
+        output = mol_write(molobject, mol_format=outfmt, file_path=None)
 
         # Update session
         status = 'completed'
@@ -109,9 +106,8 @@ class CheminfoMolhandleWampApi(object):
             localopt=request['localopt'],
             steps=request['steps'])
 
-        file_path = self.create_output_file(request)
         outfmt = request.get('output_format', request['input_format'])
-        output = mol_write(molobject, mol_format=outfmt, file_path=file_path)
+        output = mol_write(molobject, mol_format=outfmt, file_path=None)
 
         # Update session
         status = 'completed'
@@ -151,13 +147,7 @@ class CheminfoMolhandleWampApi(object):
 
         rotations = request['rotations']
         if rotations:
-            result = mol_combine_rotations(molobject, rotations=rotations)
-
-            if 'workdir' in request:
-                file_path = os.path.join(request['workdir'], 'rotations.mol2')
-                with open(file_path, 'w') as otp:
-                    otp.write(result)
-                output = file_path
+            output = mol_combine_rotations(molobject, rotations=rotations)
             status = 'completed'
         else:
             status = 'failed'
