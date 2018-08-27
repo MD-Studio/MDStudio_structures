@@ -42,85 +42,85 @@ def compare_molecules(mol1, mol2):
 
 
 dict_convert = {
-    "output_format": "mol2",
-    "workdir": "/tmp",
-    "input_format": "smi",
-    "mol": "O1[C@@H](CCC1=O)CCC"
+    u"output_format": u"mol2",
+    u"workdir": u"/tmp",
+    u"input_format": u"smi",
+    u"mol": u"O1[C@@H](CCC1=O)CCC"
 }
 
 dict_make3d = {
-    "workdir": "/tmp",
-    "input_format": "mol2",
-    "output_format": "mol2",
-    "mol": read_file(join(root, 'files/structure.mol2'))
+    u"workdir": u"/tmp",
+    u"input_format": u"mol2",
+    u"output_format": u"mol2",
+    u"mol": read_file(join(root, 'files/structure.mol2'))
 }
 
 dict_addh = {
-    "workdir": "/tmp",
-    "input_format": "mol2",
-    "output_format": "mol2",
-    "mol": read_file(join(root, "files/structure3D.mol2")),
-    "pH": 7.4,
-    "correctForPH": False
+    u"workdir": u"/tmp",
+    u"input_format": u"mol2",
+    u"output_format": u"mol2",
+    u"mol": read_file(join(root, "files/structure3D.mol2")),
+    u"pH": 7.4,
+    u"correctForPH": False
 }
 
 dict_info = {
-    "mol": read_file(join(root, "files/structure3D.mol2")),
-    "workdir": "/tmp",
-    "input_format": "mol2",
+    u"mol": read_file(join(root, "files/structure3D.mol2")),
+    u"workdir": u"/tmp",
+    u"input_format": u"mol2",
 }
 
 dict_rotate = {
-    "workdir": "/tmp",
-    "input_format": "mol2",
-    "output_format": "mol2",
-    "rotations": [
+    u"workdir": u"/tmp",
+    u"input_format": u"mol2",
+    u"output_format": u"mol2",
+    u"rotations": [
         [1, 0, 0, 90], [1, 0, 0, -90], [0, 1, 0, 90],
         [0, 1, 0, -90], [0, 0, 1, 90], [0, 0, 1, -90]],
-    "mol": read_file(join(root, "files/structureHs.mol2")),
+    u"mol": read_file(join(root, "files/structureHs.mol2")),
 }
 
 dict_similarity = {
-    "mol_format": "smi",
-    "ci_cutoff": 0.3617021276595745,
-    "workdir": "/tmp",
-    "test_set": ["O1[C@@H](CCC1=O)CCC"],
-    "reference_set": [
-      "c1(c(cccc1Nc1c(cccc1)C(=O)O)C)C",
-      "c12ccccc1nc1c(c2N)CCCC1",
-      "c1ccc(c(c1)[N+](=O)[O-])[C@H]1C(=C(NC(=C1C(=O)OC)C)C)C(=O)OC",
-      "c1cc(ccc1OCC)NC(=O)C",
-      "c12c3c(ccc1c(=O)cc(o2)c1ccccc1)cccc3",
-      "c1cc(cc(c1N/C=N/O)C)CCCC",
-      "c1(cccnc1Nc1cc(ccc1)C(F)(F)F)C(=O)O",
-      "c1ccc(c(c1C)OC[C@H](C)N)C",
-      "c1(OC[C@H](CNC(C)C)O)c2c(ccc1)cccc2",
-      "c12ccccc1cccc2",
-      "c12ccccc1cccc2C",
-      "c12ccccc1ccc(c2)C",
-      "c12ccccc1ccc(c2)F",
-      "c12ccccc1cc(cc2C)C",
-      "c12ccccc1c(ccc2C)C",
-      "c12cccc(c1cccc2Cl)Cl",
-      "c12cc(ccc1cc(cc2)C)C",
-      "C1CCC(=O)OCC1",
-      "O1[C@@H](CCC1=O)C",
-      "O1[C@@H](CCC1=O)CC",
-      "O1[C@@H](CCC1=O)CCC",
-      "O1[C@@H](CCC1=O)CCCCC",
-      "O1[C@@H](CCC1=O)CCCCCC",
-      "O1[C@@H](CCC1=O)CCCCCCC",
-      "C1C[C@@H](OC(=O)C1)CCCCC",
-      "c1c2c(ccc1)OC(=O)C2",
-      "c1c2c(ccc1)CC(=O)C2",
-      "c1c2c(ccc1)OCC2",
-      "c1c2c(ccc1)oc(=O)[nH]2",
-      "c1(ccccc1)c1ccccc1",
-      "c1c(cccc1)c1ccc(cc1)Cl",
-      "C1CCCC(C1)CCCC",
-      "[C@@H]1(OC(=O)CC1)c1ccccc1",
-      "c1(cc(oc(=O)c1)C)C",
-      "C1CC(=O)N([C@H]1c1cccnc1)C"
+    u"mol_format": u"smi",
+    u"ci_cutoff": 0.3617021276595745,
+    u"workdir": u"/tmp",
+    u"test_set": [u"O1[C@@H](CCC1=O)CCC"],
+    u"reference_set": [
+      u"c1(c(cccc1Nc1c(cccc1)C(=O)O)C)C",
+      u"c12ccccc1nc1c(c2N)CCCC1",
+      u"c1ccc(c(c1)[N+](=O)[O-])[C@H]1C(=C(NC(=C1C(=O)OC)C)C)C(=O)OC",
+      u"c1cc(ccc1OCC)NC(=O)C",
+      u"c12c3c(ccc1c(=O)cc(o2)c1ccccc1)cccc3",
+      u"c1cc(cc(c1N/C=N/O)C)CCCC",
+      u"c1(cccnc1Nc1cc(ccc1)C(F)(F)F)C(=O)O",
+      u"c1ccc(c(c1C)OC[C@H](C)N)C",
+      u"c1(OC[C@H](CNC(C)C)O)c2c(ccc1)cccc2",
+      u"c12ccccc1cccc2",
+      u"c12ccccc1cccc2C",
+      u"c12ccccc1ccc(c2)C",
+      u"c12ccccc1ccc(c2)F",
+      u"c12ccccc1cc(cc2C)C",
+      u"c12ccccc1c(ccc2C)C",
+      u"c12cccc(c1cccc2Cl)Cl",
+      u"c12cc(ccc1cc(cc2)C)C",
+      u"C1CCC(=O)OCC1",
+      u"O1[C@@H](CCC1=O)C",
+      u"O1[C@@H](CCC1=O)CC",
+      u"O1[C@@H](CCC1=O)CCC",
+      u"O1[C@@H](CCC1=O)CCCCC",
+      u"O1[C@@H](CCC1=O)CCCCCC",
+      u"O1[C@@H](CCC1=O)CCCCCCC",
+      u"C1C[C@@H](OC(=O)C1)CCCCC",
+      u"c1c2c(ccc1)OC(=O)C2",
+      u"c1c2c(ccc1)CC(=O)C2",
+      u"c1c2c(ccc1)OCC2",
+      u"c1c2c(ccc1)oc(=O)[nH]2",
+      u"c1(ccccc1)c1ccccc1",
+      u"c1c(cccc1)c1ccc(cc1)Cl",
+      u"C1CCCC(C1)CCCC",
+      u"[C@@H]1(OC(=O)CC1)c1ccccc1",
+      u"c1(cc(oc(=O)c1)C)C",
+      u"C1CC(=O)N([C@H]1c1cccnc1)C"
     ]
 }
 
