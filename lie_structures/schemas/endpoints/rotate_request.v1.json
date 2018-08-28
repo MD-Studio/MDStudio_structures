@@ -1,34 +1,29 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://mdstudio/schemas/rotate_request.json",
-  "description": "Rotate a molecule using a matrix",
-  "type": "object",
-  "properties": {
-    "rotations": {
-      "type": "array",
-      "descriptions": "Rotation Matrix"
+    "$schema": "http://json-schema.org/draft-04/schema#",
+    "id": "http://mdstudio/schemas/rotate_request.json",
+    "description": "Rotate a molecule using a matrix",
+    "type": "object",
+    "properties": {
+	"rotations": {
+	    "type": "array",
+	    "descriptions": "Rotation Matrix"
+	},
+	"toolkit": {
+	    "type": "string",
+	    "description": "Default cheminformatics toolkit to use",
+	    "default": "pybel"
+	},
+	"mol": {
+	    "$ref": "resource://mdgroup/common_resources/path_file/v1",
+	    "description": "Moleculare file"
+	},
+	"workdir": {
+	    "type": "string",
+	    "default": "."
+	}
     },
-    "toolkit": {
-      "type": "string",
-      "description": "Default cheminformatics toolkit to use",
-      "default": "pybel"
-    },
-    "mol": {
-      "type": "string",
-      "description": "Moleculare file"
-    },
-    "input_format": {
-      "type": "string",
-      "description": "Structure input file format"
-    },
-    "workdir": {
-      "type": "string",
-      "default": "."
-    }
-  },
-  "required": [
-    "mol",
-    "input_format",
-    "rotations"
-  ]
+    "required": [
+	"mol",
+	"rotations"
+    ]
 }

@@ -11,7 +11,7 @@ class CheminfoDescriptorsWampApi(object):
 
         # Import the molecule
         molobject = mol_read(
-            request["structure"], mol_format=request["mol_format"],
+            request["mol"]["content"], mol_format=request["mol"]["extension"],
             toolkit=request["toolkit"])
         desc = molobject.calcdesc()
 

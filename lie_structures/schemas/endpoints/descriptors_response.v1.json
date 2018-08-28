@@ -11,7 +11,7 @@
 	    "enum": ["failed", "completed"]
 	},
 	"descriptors": {
-	    "type": ["string", "null"],
+	    "type": "string",
 	    "description": "Molecular toolkit use",
 	    "default": "pybel"
 	}

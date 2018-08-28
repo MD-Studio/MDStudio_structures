@@ -1,4 +1,4 @@
-from  __future__ import print_function
+from __future__ import print_function
 
 from mdstudio.deferred.chainable import chainable
 from mdstudio.component.session import ComponentSession
@@ -12,6 +12,15 @@ file_path = os.path.realpath(__file__)
 root = os.path.split(file_path)[0]
 
 
+def create_path_file_obj(path, extension='mol2'):
+    """
+    Encode the input files
+    """
+    return {
+        'path': path, 'content': read_mol(path, extension),
+        'extension': extension}
+
+
 def read_mol(mol, fmt="mol2"):
     """Read a molecular object either from a file or string"""
     if os.path.isfile(mol):
@@ -20,14 +29,6 @@ def read_mol(mol, fmt="mol2"):
         mol = pybel.readstring(fmt, mol)
 
     return mol
-
-
-def read_file(file_path):
-    """ Returns file content"""
-    with open(file_path, 'r') as f:
-        content = f.read()
-
-    return content
 
 
 def compare_molecules(mol1, mol2):
@@ -52,20 +53,20 @@ dict_make3d = {
     u"workdir": u"/tmp",
     u"input_format": u"mol2",
     u"output_format": u"mol2",
-    u"mol": read_file(join(root, 'files/structure.mol2'))
+    u"mol": create_path_file_obj(join(root, 'files/structure.mol2'))
 }
 
 dict_addh = {
     u"workdir": u"/tmp",
     u"input_format": u"mol2",
     u"output_format": u"mol2",
-    u"mol": read_file(join(root, "files/structure3D.mol2")),
+    u"mol": create_path_file_obj(join(root, "files/structure3D.mol2")),
     u"pH": 7.4,
     u"correctForPH": False
 }
 
 dict_info = {
-    u"mol": read_file(join(root, "files/structure3D.mol2")),
+    u"mol": create_path_file_obj(join(root, "files/structure3D.mol2")),
     u"workdir": u"/tmp",
     u"input_format": u"mol2",
 }
@@ -77,7 +78,7 @@ dict_rotate = {
     u"rotations": [
         [1, 0, 0, 90], [1, 0, 0, -90], [0, 1, 0, 90],
         [0, 1, 0, -90], [0, 0, 1, 90], [0, 0, 1, -90]],
-    u"mol": read_file(join(root, "files/structureHs.mol2")),
+    u"mol": create_path_file_obj(join(root, "files/structureHs.mol2")),
 }
 
 dict_similarity = {

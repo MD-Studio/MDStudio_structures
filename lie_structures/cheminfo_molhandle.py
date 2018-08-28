@@ -35,7 +35,7 @@ def mol_read(
             molobject = toolkit_driver.readfile(mol_format, mol).next()
         else:
             molobject = toolkit_driver.readstring(mol_format, mol)
-    except IOError, e:
+    except IOError as e:
         print(e)
         return
 

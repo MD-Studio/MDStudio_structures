@@ -7,20 +7,11 @@
   "properties": {
     "test_set": {
       "type": "array",
-      "description": " test set to calculate similarity"
+      "description": " test set to calculate similarity (containing serialized molecules)"
     },
     "reference_set": {
       "type": "array",
-      "description": "set to calculate similarity against"
-    },
-    "mol_format": {
-      "type": "string",
-      "description": "format use to represent the molecular geometry",
-      "default": "mol2",
-      "Enum": [
-        "pdb",
-        "mol2"
-      ]
+      "description": "set to calculate similarity against (containing serialized molecules)"
     },
     "fp_format": {
       "type": "string",
@@ -45,7 +36,6 @@
   "required": [
     "test_set",
     "reference_set",
-    "mol_format",
     "ci_cutoff"
   ]
 }

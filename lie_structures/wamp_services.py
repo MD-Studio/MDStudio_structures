@@ -172,4 +172,6 @@ class StructuresWampApi(
             status = 'failed'
             molecule = None
 
-        return {'status': status, 'mol': molecule}
+        result = {'path': None, 'content': molecule, 'extension': ext}
+
+        return {'status': status, 'mol': result}

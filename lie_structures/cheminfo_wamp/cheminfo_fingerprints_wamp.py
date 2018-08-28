@@ -31,15 +31,16 @@ class CheminfoFingerprintsWampApi(object):
         """
         metric = request['metric']
         toolkit = request['toolkit']
-        mol_format = request['mol_format']
         test_set = request['test_set']
         reference_set = request['reference_set']
         fp_format = request['fp_format']
         ci_cutoff = request['ci_cutoff']
 
         # Import the molecules
-        test_mols = [mol_read(x, mol_format=mol_format, toolkit=toolkit) for x in test_set]
-        reference_mols = [mol_read(x, mol_format=mol_format, toolkit=toolkit) for x in reference_set]
+        test_mols = [mol_read(
+            mol['content'], mol_format=mol['extension'], toolkit=toolkit) for mol in test_set]
+        reference_mols = [mol_read(
+            mol['content'], mol_format=mol['extension'], toolkit=toolkit) for mol in reference_set]
 
         # Calculate the fingerprints
         test_fps = [m.calcfp(fp_format) for m in test_mols]

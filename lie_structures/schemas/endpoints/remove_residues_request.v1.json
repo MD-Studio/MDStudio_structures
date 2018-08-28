@@ -1,26 +1,26 @@
 {
-  "$schema": "http://json-schema.org/draft-04/schema",
-  "id": "http://mdstudio/schemas/removed_residues_request.json",
-  "title": "Chemical similarity input",
-  "description": "Calculate the chemical similarity between structures",
-  "type": "object",
-  "properties": {
-    "mol": {
-      "type": "string",
-      "description": "Molecular representation"
+    "$schema": "http://json-schema.org/draft-04/schema",
+    "id": "http://mdstudio/schemas/removed_residues_request.json",
+    "title": "Chemical similarity input",
+    "description": "Calculate the chemical similarity between structures",
+    "type": "object",
+    "properties": {
+	"mol": {
+	    "$ref": "resource://mdgroup/common_resources/path_file/v1",
+	    "description": "Molecular representation"
+	},
+	"residues": {
+	    "type": "array",
+	    "description": "Residues to remove",
+	    "default": []
+	},
+	"workdir": {
+	    "type": "string",
+	    "description": "Working directory",
+	    "default": "."
+	}
     },
-    "residues": {
-      "type": "array",
-      "description": "Residues to remove",
-      "default": []
-    },
-    "workdir": {
-      "type": "string",
-      "description": "Working directory",
-      "default": "."
-    }
-  },
-  "required": [
-    "mol"
-  ]
+    "required": [
+	"mol"
+    ]
 }

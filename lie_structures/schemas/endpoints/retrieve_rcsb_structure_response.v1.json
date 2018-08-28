@@ -11,7 +11,7 @@
 	    "enum": ["failed", "completed"]
 	},
 	"mol": {
-	    "type": ["string", "null"],
+	    "$ref": "resource://mdgroup/common_resources/path_file/v1",
 	    "description": "Resulting molecule"
 	}
     },
