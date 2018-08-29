@@ -47,7 +47,6 @@ class CheminfoMolhandleWampApi(object):
         molobject = self.read_mol(request)
 
         output = mol_write(molobject, mol_format=self.get_output_format(request), file_path=None)
-
         # Update session
         status = 'completed'
 
@@ -90,7 +89,7 @@ class CheminfoMolhandleWampApi(object):
         # Update session
         status = 'completed'
 
-        return {'mol': output, 'status': status}
+        return {'mol': create_path_file_obj(output), 'status': status}
 
     def make3d_structures(self, request, claims):
         """
@@ -112,7 +111,7 @@ class CheminfoMolhandleWampApi(object):
         # Update session
         status = 'completed'
 
-        return {'mol': output, 'status': status}
+        return {'mol': create_path_file_obj(output), 'status': status}
 
     def structure_attributes(self, request, claims):
         """
@@ -146,11 +145,7 @@ class CheminfoMolhandleWampApi(object):
         molobject = self.read_mol(request)
 
         rotations = request['rotations']
-        if rotations:
-            output = mol_combine_rotations(molobject, rotations=rotations)
-            status = 'completed'
-        else:
-            status = 'failed'
-            output = None
+        output = mol_combine_rotations(molobject, rotations=rotations)
+        status = 'completed' if output is not None else 'failed'
 
-        return {'status': status, 'mol': output}
+        return {'status': status, 'mol': create_path_file_obj(output)}

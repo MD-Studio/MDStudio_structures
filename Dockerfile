@@ -4,16 +4,11 @@ FROM mdstudio/mdstudio_docker_conda:0.0.3
 
 RUN apt-get update -y && apt-get install swig wget gcc g++ gfortran cmake libxrender-dev -y
 
-COPY . /home/mdstudio/lie_structures
-
-RUN chown mdstudio:mdstudio /home/mdstudio/lie_structures
-
 RUN conda install -c openbabel openbabel && \
     conda install -c bioconda java-jdk && \
     conda install -c conda-forge jpype1 && \
     conda install -c speleo3 indigo && \
     conda install -c rdkit rdkit=="2018.03.3.0"
-
 
 RUN pip install pydpi
 
@@ -29,6 +24,10 @@ ENV JPYPE_JVM=/usr/local/jre/lib/amd64/server/libjvm.so
 
 
 RUN pip install "https://github.com/cinfony/cinfony/tarball/master#egg=cinfony-1.2"
+
+COPY . /home/mdstudio/lie_structures
+
+RUN chown mdstudio:mdstudio /home/mdstudio/lie_structures
 
 WORKDIR /home/mdstudio/lie_structures
 

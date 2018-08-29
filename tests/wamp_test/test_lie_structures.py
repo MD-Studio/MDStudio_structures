@@ -17,8 +17,22 @@ def create_path_file_obj(path, extension='mol2'):
     Encode the input files
     """
     return {
-        'path': path, 'content': read_mol(path, extension),
-        'extension': extension}
+        u'path': path, u'content': read_file(path),
+        u'extension': extension}
+
+
+def create_smile_file_object(smile):
+    """
+    represent a molecule as a serialized file containing a smile
+    """
+    return {u"content": smile, u"extension": 'smi', u"path": None}
+
+
+def read_file(file_path):
+    """ Returns file content"""
+    with open(file_path, 'r') as f:
+        content = f.read()
+    return content
 
 
 def read_mol(mol, fmt="mol2"):
@@ -45,20 +59,17 @@ def compare_molecules(mol1, mol2):
 dict_convert = {
     u"output_format": u"mol2",
     u"workdir": u"/tmp",
-    u"input_format": u"smi",
-    u"mol": u"O1[C@@H](CCC1=O)CCC"
+    u"mol": create_smile_file_object(u"O1[C@@H](CCC1=O)CCC")
 }
 
 dict_make3d = {
     u"workdir": u"/tmp",
-    u"input_format": u"mol2",
     u"output_format": u"mol2",
     u"mol": create_path_file_obj(join(root, 'files/structure.mol2'))
 }
 
 dict_addh = {
     u"workdir": u"/tmp",
-    u"input_format": u"mol2",
     u"output_format": u"mol2",
     u"mol": create_path_file_obj(join(root, "files/structure3D.mol2")),
     u"pH": 7.4,
@@ -67,13 +78,11 @@ dict_addh = {
 
 dict_info = {
     u"mol": create_path_file_obj(join(root, "files/structure3D.mol2")),
-    u"workdir": u"/tmp",
-    u"input_format": u"mol2",
+    u"workdir": u"/tmp"
 }
 
 dict_rotate = {
     u"workdir": u"/tmp",
-    u"input_format": u"mol2",
     u"output_format": u"mol2",
     u"rotations": [
         [1, 0, 0, 90], [1, 0, 0, -90], [0, 1, 0, 90],
@@ -85,8 +94,8 @@ dict_similarity = {
     u"mol_format": u"smi",
     u"ci_cutoff": 0.3617021276595745,
     u"workdir": u"/tmp",
-    u"test_set": [u"O1[C@@H](CCC1=O)CCC"],
-    u"reference_set": [
+    u"test_set": [create_smile_file_object(u"O1[C@@H](CCC1=O)CCC")],
+    u"reference_set": map(create_smile_file_object, [
       u"c1(c(cccc1Nc1c(cccc1)C(=O)O)C)C",
       u"c12ccccc1nc1c(c2N)CCCC1",
       u"c1ccc(c(c1)[N+](=O)[O-])[C@H]1C(=C(NC(=C1C(=O)OC)C)C)C(=O)OC",
@@ -122,7 +131,7 @@ dict_similarity = {
       u"[C@@H]1(OC(=O)CC1)c1ccccc1",
       u"c1(cc(oc(=O)c1)C)C",
       u"C1CC(=O)N([C@H]1c1cccnc1)C"
-    ]
+    ])
 }
 
 
@@ -140,20 +149,20 @@ class Run_structures(ComponentSession):
         print("toolkits available: {}".format(toolkits['toolkits']))
 
         convert = yield self.call(
-            "mdgroup.lie_structures.endpoint.convert", dict_convert)
-        assert compare_molecules(convert['mol'], join(root, 'files/structure.mol2'))
+            u"mdgroup.lie_structures.endpoint.convert", dict_convert)
+        assert compare_molecules(convert['mol']['content'], join(root, u'files/structure.mol2'))
         print("converting {} from smile to mol2 succeeded!".format(
             dict_convert['mol']))
 
         make3d = yield self.call(
             "mdgroup.lie_structures.endpoint.make3d", dict_make3d)
-        assert compare_molecules(make3d['mol'], join(root, 'files/structure3D.mol2'))
+        assert compare_molecules(make3d['mol']['content'], join(root, 'files/structure3D.mol2'))
         print("successful creation of a 3D structure for {}".format(
             dict_convert['mol']))
 
         addh = yield self.call(
             "mdgroup.lie_structures.endpoint.addh", dict_addh)
-        assert compare_molecules(addh['mol'], join(root, 'files/structureHs.mol2'))
+        assert compare_molecules(addh['mol']['content'], join(root, 'files/structureHs.mol2'))
         print("added hydrogens sucessfully!")
 
         info = yield self.call(
@@ -166,7 +175,7 @@ class Run_structures(ComponentSession):
 
         rotate = yield self.call(
             "mdgroup.lie_structures.endpoint.rotate", dict_rotate)
-        assert compare_molecules(rotate['mol'], join(root, 'files/rotations.mol2'))
+        assert compare_molecules(rotate['mol']['content'], join(root, 'files/rotations.mol2'))
         print("rotatation method succeeded!")
 
         similarity = yield self.call(

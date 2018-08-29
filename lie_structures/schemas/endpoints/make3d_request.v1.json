@@ -11,7 +11,7 @@
 	},
 	"mol": {
 	    "$ref": "resource://mdgroup/common_resources/path_file/v1",
-	    "description": "Moleculare file"
+	    "description": "Molecular geometry"
 	},
 	"output_format": {
 	    "type": "string",
