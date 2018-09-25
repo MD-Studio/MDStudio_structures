@@ -34,7 +34,7 @@ class CheminfoMolhandleWampApi(object):
     @staticmethod
     def get_output_format(config):
         """ Retrieve the format to store the output"""
-        return config.get('output_format', config['mol']['extension'])
+        return config.get('output_format', config['mol']['extension'].lstrip('.'))
 
     def convert_structures(self, request, claims):
         """

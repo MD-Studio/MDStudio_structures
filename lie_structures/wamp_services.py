@@ -152,7 +152,8 @@ class StructuresWampApi(
 
         # Change file extension
         base, ext = os.path.splitext(dfile)
-        if ext == '.ent':
+        ext = ext.lstrip('.')
+        if ext == 'ent':
             os.rename(dfile, '{0}.pdb'.format(base))
             dfile = '{0}.pdb'.format(base)
 
@@ -167,8 +168,7 @@ class StructuresWampApi(
                     molecule = f.read()
 
         else:
-            self.log.error(
-                'Unable to download structure: {0}'.format(pdb_id))
+            self.log.error('Unable to download structure: {0}'.format(pdb_id))
             status = 'failed'
             molecule = None
 
