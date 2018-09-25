@@ -46,11 +46,12 @@ class CheminfoMolhandleWampApi(object):
         """
         molobject = self.read_mol(request)
 
-        output = mol_write(molobject, mol_format=self.get_output_format(request), file_path=None)
+        output_format = self.get_output_format(request)
+        output = mol_write(molobject, mol_format=output_format, file_path=None)
         # Update session
         status = 'completed'
 
-        return {'mol': create_path_file_obj(output), 'status': status}
+        return {'mol': create_path_file_obj(output, extension=output_format), 'status': status}
 
     def addh_structures(self, request, claims):
         """
