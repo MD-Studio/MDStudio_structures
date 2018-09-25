@@ -28,7 +28,7 @@ class CheminfoMolhandleWampApi(object):
         """Read molecular structure using `config` """
 
         return mol_read(
-            config['mol']['content'], mol_format=config['mol']['extension'],
+            config['mol']['content'], mol_format=config['mol']['extension'].lstrip('.'),
             toolkit=config['toolkit'])
 
     @staticmethod
