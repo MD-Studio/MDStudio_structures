@@ -31,6 +31,10 @@
     "ci_cutoff": {
       "type": "number",
       "description": "AP CI cutoff value"
+    },
+    "workdir": {
+      "type": "string",
+      "default": "."
     }
   },
   "required": [

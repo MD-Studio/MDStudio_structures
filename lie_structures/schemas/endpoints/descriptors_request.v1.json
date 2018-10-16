@@ -5,17 +5,21 @@
   "description": "Molecular descriptors configuration",
   "type": "object",
   "properties": {
-      "mol": {
-          "$ref": "resource://mdgroup/common_resources/path_file/v1",
-	  "description": "molecular geometry"
-      },
-      "toolkit": {
-	  "type": "string",
+    "mol": {
+      "$ref": "resource://mdgroup/common_resources/path_file/v1",
+      "description": "molecular geometry"
+    },
+    "toolkit": {
+      "type": "string",
       "description": "Molecular toolkit use",
-	  "default": "pybel"
-      }
+      "default": "pybel"
+    },
+    "workdir": {
+      "type": "string",
+      "default": "."
+    }
   },
-    "required": [
-	"mol"
-    ]
+  "required": [
+    "mol"
+  ]
 }
