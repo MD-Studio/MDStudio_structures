@@ -8,6 +8,7 @@
     "test_set": {
       "type": "array",
       "description": " test set to calculate similarity (containing serialized molecules)",
+      "format": "file_array",
       "items": {
         "$ref": "resource://mdgroup/common_resources/path_file/v1"
       }
@@ -15,6 +16,7 @@
     "reference_set": {
       "type": "array",
       "description": "set to calculate similarity against (containing serialized molecules)",
+      "format": "file_array",
       "items": {
         "$ref": "resource://mdgroup/common_resources/path_file/v1"
       }
