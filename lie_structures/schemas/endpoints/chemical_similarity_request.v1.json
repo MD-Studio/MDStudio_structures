@@ -7,11 +7,17 @@
   "properties": {
     "test_set": {
       "type": "array",
-      "description": " test set to calculate similarity (containing serialized molecules)"
+      "description": " test set to calculate similarity (containing serialized molecules)",
+      "items": {
+        "$ref": "resource://mdgroup/common_resources/path_file/v1"
+      }
     },
     "reference_set": {
       "type": "array",
-      "description": "set to calculate similarity against (containing serialized molecules)"
+      "description": "set to calculate similarity against (containing serialized molecules)",
+      "items": {
+        "$ref": "resource://mdgroup/common_resources/path_file/v1"
+      }
     },
     "fp_format": {
       "type": "string",
