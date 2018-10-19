@@ -1,19 +1,25 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema",
-    "id": "http://mdstudio/schemas/removed_residues_response.json",
-    "title": "Remove residues output",
-    "description": "Output description after removing residues",
-    "type": "object",
-    "properties": {
-	"status": {
-	    "type": "string",
-	    "description": "Job final status",
-	    "enum": ["failed", "completed"]
-	},
-	"mol": {
-	    "$ref": "resource://mdgroup/common_resources/path_file/v1",
-	    "description": "Resulting molecule"
-	}
+  "$schema": "http://json-schema.org/draft-04/schema",
+  "id": "http://mdstudio/schemas/removed_residues_response.json",
+  "title": "Remove residues output",
+  "description": "Output description after removing residues",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Job final status",
+      "enum": [
+        "failed",
+        "completed"
+      ]
     },
-    "required": ["status", "mol"]
+    "mol": {
+      "$ref": "resource://mdgroup/lie_structures/path_file/v1",
+      "description": "Resulting molecule"
+    }
+  },
+  "required": [
+    "status",
+    "mol"
+  ]
 }

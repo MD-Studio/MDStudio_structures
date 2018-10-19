@@ -1,0 +1,37 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "path_file",
+  "description": "Object describing a file",
+  "type": "object",
+  "format": "file",
+  "properties": {
+    "content": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "actual content of the file"
+    },
+    "path": {
+      "type": [
+        "string",
+        "null"
+      ],
+      "description": "file path"
+    },
+    "extension": {
+      "type": "string",
+      "description": "extension of the file without the leading dot",
+      "default": "smi"
+    },
+    "encoding": {
+      "type": "string",
+      "description": "Encoding use for the string",
+      "default": "utf8"
+    }
+  },
+  "required": [
+    "content",
+    "path"
+  ]
+}

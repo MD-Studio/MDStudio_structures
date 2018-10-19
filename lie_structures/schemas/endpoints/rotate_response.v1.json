@@ -1,18 +1,24 @@
 {
-    "$schema": "http://json-schema.org/draft-04/schema#",
-    "id": "http://mdstudio/schemas/rotate_response.json",
-    "description": "Rotate a molecule using a matrix",
-    "type": "object",
-    "properties": {
-	"status": {
-	    "type": "string",
-	    "description": "Job final status",
-	    "enum": ["failed", "completed"]
-	},
-	"mol": {
-	    "$ref": "resource://mdgroup/common_resources/path_file/v1",
-	    "description": "Resulting molecule"
-	}
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://mdstudio/schemas/rotate_response.json",
+  "description": "Rotate a molecule using a matrix",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string",
+      "description": "Job final status",
+      "enum": [
+        "failed",
+        "completed"
+      ]
     },
-    "required": ["mol", "status"]
+    "mol": {
+      "$ref": "resource://mdgroup/lie_structures/path_file/v1",
+      "description": "Resulting molecule"
+    }
+  },
+  "required": [
+    "mol",
+    "status"
+  ]
 }

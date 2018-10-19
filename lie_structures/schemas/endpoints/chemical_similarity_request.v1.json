@@ -10,7 +10,7 @@
       "description": " test set to calculate similarity (containing serialized molecules)",
       "format": "file_array",
       "items": {
-        "$ref": "resource://mdgroup/common_resources/path_file/v1"
+        "$ref": "resource://mdgroup/lie_structures/path_file/v1"
       }
     },
     "reference_set": {
@@ -18,7 +18,7 @@
       "description": "set to calculate similarity against (containing serialized molecules)",
       "format": "file_array",
       "items": {
-        "$ref": "resource://mdgroup/common_resources/path_file/v1"
+        "$ref": "resource://mdgroup/lie_structures/path_file/v1"
       }
     },
     "fp_format": {

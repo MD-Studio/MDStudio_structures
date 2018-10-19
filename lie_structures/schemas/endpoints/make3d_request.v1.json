@@ -10,7 +10,7 @@
       "default": "pybel"
     },
     "mol": {
-      "$ref": "resource://mdgroup/common_resources/path_file/v1",
+      "$ref": "resource://mdgroup/lie_structures/path_file/v1",
       "description": "Molecular geometry"
     },
     "output_format": {
