@@ -14,9 +14,7 @@ def create_path_file_obj(mol, extension='mol2'):
     """
     Encode the input files
     """
-    return {
-        'path': None, 'content': mol,
-        'extension': extension}
+    return {'path': None, 'content': mol, 'extension': extension}
 
 
 class CheminfoMolhandleWampApi(object):
@@ -48,10 +46,8 @@ class CheminfoMolhandleWampApi(object):
 
         output_format = self.get_output_format(request)
         output = mol_write(molobject, mol_format=output_format, file_path=None)
-        # Update session
-        status = 'completed'
 
-        return {'mol': create_path_file_obj(output, extension=output_format), 'status': status}
+        return {'mol': create_path_file_obj(output, extension=output_format), 'status': 'completed'}
 
     def addh_structures(self, request, claims):
         """
@@ -68,12 +64,10 @@ class CheminfoMolhandleWampApi(object):
             correctForPH=request['correctForPH'],
             pH=request['pH'])
 
-        output = mol_write(molobject, mol_format=self.get_output_format(request), file_path=None)
+        output_format = self.get_output_format(request)
+        output = mol_write(molobject, mol_format=output_format, file_path=None)
 
-        # Update session
-        status = 'completed'
-
-        return {'mol': create_path_file_obj(output), 'status': status}
+        return {'mol': create_path_file_obj(output, extension=output_format), 'status': 'completed'}
 
     def removeh_structures(self, request, claims):
         """
@@ -85,12 +79,10 @@ class CheminfoMolhandleWampApi(object):
         """
         molobject = mol_removeh(self.read_mol(request))
 
-        output = mol_write(molobject, mol_format=self.get_output_format(request), file_path=None)
+        output_format = self.get_output_format(request)
+        output = mol_write(molobject, mol_format=output_format, file_path=None)
 
-        # Update session
-        status = 'completed'
-
-        return {'mol': create_path_file_obj(output), 'status': status}
+        return {'mol': create_path_file_obj(output, extension=output_format), 'status': 'completed'}
 
     def make3d_structures(self, request, claims):
         """
@@ -107,12 +99,10 @@ class CheminfoMolhandleWampApi(object):
             localopt=request['localopt'],
             steps=request['steps'])
 
-        output = mol_write(molobject, mol_format=self.get_output_format(request), file_path=None)
+        output_format = self.get_output_format(request)
+        output = mol_write(molobject, mol_format=output_format, file_path=None)
 
-        # Update session
-        status = 'completed'
-
-        return {'mol': create_path_file_obj(output), 'status': status}
+        return {'mol': create_path_file_obj(output, extension=output_format), 'status': 'completed'}
 
     def structure_attributes(self, request, claims):
         """
@@ -127,10 +117,7 @@ class CheminfoMolhandleWampApi(object):
         molobject = self.read_mol(request)
         attributes = mol_attributes(molobject) or {}
 
-        # Update session
-        status = 'completed'
-
-        return {'status': status, 'attributes': attributes}
+        return {'status': 'completed', 'attributes': attributes}
 
     def rotate_structures(self, request, claims):
         """
@@ -146,7 +133,8 @@ class CheminfoMolhandleWampApi(object):
         molobject = self.read_mol(request)
 
         rotations = request['rotations']
+        output_format = self.get_output_format(request)
         output = mol_combine_rotations(molobject, rotations=rotations)
         status = 'completed' if output is not None else 'failed'
 
-        return {'status': status, 'mol': create_path_file_obj(output)}
+        return {'status': status, 'mol': create_path_file_obj(output, extension=output_format)}
