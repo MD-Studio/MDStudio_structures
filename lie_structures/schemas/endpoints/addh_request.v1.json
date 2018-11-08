@@ -12,7 +12,7 @@
     },
     "mol": {
       "$ref": "resource://mdgroup/lie_structures/path_file/v1",
-      "description": "Molecular representation"
+      "description": "Molecular file or string format representation"
     },
     "output_format": {
       "type": "string",
