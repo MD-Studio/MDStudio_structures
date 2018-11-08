@@ -6,12 +6,52 @@ file: cheminfo_molhandle.py
 Cinfony driven cheminformatics molecule read, write and manipulate functions
 """
 
+import re
 import os
+
 from . import toolkits
 
+smiles_regex = re.compile('^([^J][A-Za-z0-9@+\-\[\]\(\)\\\/%=#$]+)$')
 
-def mol_read(
-        mol, mol_format=None, from_file=False, toolkit='pybel', default_mol_name='ligand'):
+
+def mol_validate_file_object(path_file):
+    """
+    Validate a MDStudio path_file object
+
+    - Check if 'content' is a InChI or SMILES string and set extension
+      (mol_format)
+    - If no 'content' check if path exists
+
+    :param path_file: path_file object
+    :type path_file:  :py:dict
+
+    :return:          validated path_file object
+    :rtype:           :py:dict
+    """
+
+    content = path_file['content']
+    if content is not None:
+
+        # SMILES and InChI are single line strings
+        if len(content.split('\n')) == 1:
+
+            # Test for InChI type
+            if content.startswith('InChI='):
+                path_file['extension'] = 'inchi'
+
+            # Test for SMILES
+            if smiles_regex.match(path_file['content']):
+                path_file['extension'] = 'smi'
+
+    elif path_file['path'] is not None and os.path.exists(path_file['path']):
+
+        with open(path_file['path']) as pf:
+            path_file['content'] = pf.read()
+
+    return path_file
+
+
+def mol_read(mol, mol_format=None, from_file=False, toolkit='pybel', default_mol_name='ligand'):
     """
     Import molecular structure file in cheminformatics toolkit molecular object
     """

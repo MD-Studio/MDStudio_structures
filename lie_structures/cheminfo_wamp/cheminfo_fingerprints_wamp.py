@@ -10,7 +10,7 @@ import os
 import numpy
 import pandas
 
-from lie_structures.cheminfo_molhandle import mol_read
+from lie_structures.cheminfo_molhandle import mol_read, mol_validate_file_object
 from lie_structures.cheminfo_fingerprint import mol_fingerprint_cross_similarity
 
 
@@ -31,10 +31,10 @@ class CheminfoFingerprintsWampApi(object):
         """
         metric = request['metric']
         toolkit = request['toolkit']
-        test_set = request['test_set']
-        reference_set = request['reference_set']
         fp_format = request['fp_format']
         ci_cutoff = request['ci_cutoff']
+        test_set = [mol_validate_file_object(obj) for obj in request['test_set']]
+        reference_set = [mol_validate_file_object(obj) for obj in request['reference_set']]
 
         # Import the molecules
         test_mols = [mol_read(

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from lie_structures.cheminfo_molhandle import mol_read
+from lie_structures.cheminfo_molhandle import mol_read, mol_validate_file_object
 
 
 class CheminfoDescriptorsWampApi(object):
@@ -10,9 +10,8 @@ class CheminfoDescriptorsWampApi(object):
     def get_descriptors(self, request, claims):
 
         # Import the molecule
-        molobject = mol_read(
-            request["mol"]["content"], mol_format=request["mol"]["extension"],
-            toolkit=request["toolkit"])
+        mol = mol_validate_file_object(request['mol'])
+        molobject = mol_read(mol['content'], mol_format=mol['extension'], toolkit=request["toolkit"])
         desc = molobject.calcdesc()
 
         if desc is not None:

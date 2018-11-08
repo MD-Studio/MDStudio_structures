@@ -7,7 +7,8 @@ WAMP service methods the module exposes.
 """
 
 from lie_structures.cheminfo_molhandle import (
-     mol_addh, mol_attributes, mol_make3D, mol_read, mol_removeh, mol_write, mol_combine_rotations)
+     mol_addh, mol_attributes, mol_make3D, mol_read, mol_removeh, mol_write, mol_combine_rotations,
+     mol_validate_file_object)
 
 
 def create_path_file_obj(mol, extension='mol2'):
@@ -21,13 +22,14 @@ class CheminfoMolhandleWampApi(object):
     """
     Cheminformatics molecule handling WAMP API
     """
+
     @staticmethod
     def read_mol(config):
         """Read molecular structure using `config` """
 
+        mol = mol_validate_file_object(config['mol'])
         return mol_read(
-            config['mol']['content'], mol_format=config['mol']['extension'].lstrip('.'),
-            toolkit=config['toolkit'])
+            mol['content'], mol_format=mol['extension'].lstrip('.'), toolkit=config['toolkit'])
 
     @staticmethod
     def get_output_format(config):
