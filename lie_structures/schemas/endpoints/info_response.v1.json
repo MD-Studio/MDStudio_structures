@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://mdstudio/schemas/info_response.json",
+  "id": "http://mdstudio/schemas/endpoints/info_response.v1.json",
   "title": "Get attributes input",
   "description": "Return common structure attributes",
   "type": "object",

@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://mdstudio/schemas/info_request.json",
+  "id": "http://mdstudio/schemas/endpoints/info_request.v1.json",
   "description": "Molecular attributes",
   "type": "object",
   "properties": {

@@ -1,5 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
+  "id": "http://mdstudio/schemas/resources/path_file.v1.json",
   "title": "path_file",
   "description": "Object describing a file",
   "type": "object",

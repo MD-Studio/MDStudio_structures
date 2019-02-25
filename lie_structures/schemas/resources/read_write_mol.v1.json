@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://liestudio/schemas/read_write_mol.json",
+  "id": "http://mdstudio/schemas/resources/read_write_mol.v1.json",
   "title": "input output config",
   "description": "Config to read and write a mol",
   "type": "object",

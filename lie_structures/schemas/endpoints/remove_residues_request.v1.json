@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
-  "id": "http://mdstudio/schemas/removed_residues_request.json",
+  "id": "http://mdstudio/schemas/endpoints/removed_residues_request.v1.json",
   "title": "Chemical similarity input",
   "description": "Remove residues from a biomolecular structure",
   "type": "object",

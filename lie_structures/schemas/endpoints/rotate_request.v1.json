@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://mdstudio/schemas/rotate_request.json",
+  "id": "http://mdstudio/schemas/endpoints/rotate_request.v1.json",
   "description": "Rotate a molecule using a matrix",
   "type": "object",
   "properties": {

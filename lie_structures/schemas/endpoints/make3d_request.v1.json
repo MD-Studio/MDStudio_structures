@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://mdstudio/schemas/make3d_request.json",
+  "id": "http://mdstudio/schemas/endpoints/make3d_request.v1.json",
   "description": "create a guess 3D representation of a molecule",
   "type": "object",
   "properties": {

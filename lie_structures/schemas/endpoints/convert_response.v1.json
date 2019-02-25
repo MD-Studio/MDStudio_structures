@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://liestudio/schemas/convert_response.json",
+  "id": "http://mdstudio/schemas/endpoints/convert_response.v1.json",
   "title": "Convert molecule output",
   "description": "Convert molecule representation",
   "type": "object",

@@ -1,6 +1,6 @@
 {
     "$schema": "http://json-schema.org/draft-04/schema",
-    "id": "http://mdstudio/schemas/supported_toolkits_request.json",
+    "id": "http://mdstudio/schemas/endpoints/supported_toolkits_request.v1.json",
     "title": "Supported toolkits input",
     "description": "Check what bioinformatics package are supported by the service",
     "type": "object",

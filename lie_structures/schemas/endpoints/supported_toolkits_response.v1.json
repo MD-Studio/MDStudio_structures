@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema",
-  "id": "http://mdstudio/schemas/toolkits_response.json",
+  "id": "http://mdstudio/schemas/endpoints/toolkits_response.v1.json",
   "title": "Chemical similarity input",
   "description": "Check what bioinformatics package are supported by the service",
   "type": "object",
