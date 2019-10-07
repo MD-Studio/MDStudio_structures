@@ -2,7 +2,9 @@
 # Install all the cheminformatic packages
 FROM mdstudio/mdstudio_docker_conda:0.0.3
 
-RUN apt-get update -y && apt-get install swig wget gcc g++ gfortran cmake libxrender-dev -y
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends swig wget gcc g++ gfortran cmake libxrender-dev && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN conda install -c openbabel openbabel && \
     conda install -c bioconda java-jdk && \

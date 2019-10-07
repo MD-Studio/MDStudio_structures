@@ -7,7 +7,9 @@ class CheminfoDescriptorsWampApi(object):
     """
     Cheminformatics descriptors WAMP API
     """
-    def get_descriptors(self, request, claims):
+
+    @staticmethod
+    def get_descriptors(request, claims):
 
         # Import the molecule
         mol = mol_validate_file_object(request['mol'])

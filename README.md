@@ -10,13 +10,12 @@ Molecular structure based microservice for the MDStudio workflow environment.
 This service combines the functionality of 9 popular cheminformatics packages through a common interface using 
 [Cinfony](http://cinfony.github.io):
 
-- webel
-- silverwebel
-- OpenBabel
-- CDK
-- RDkit
-- Opsin
-- Indigo
-- JChem
-- PyDPI
-
+  - webel
+  - silverwebel
+  - OpenBabel
+  - CDK
+  - RDkit
+  - Opsin
+  - Indigo
+  - JChem
+  - PyDPI

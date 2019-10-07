@@ -189,10 +189,13 @@ def mol_make3D(molobject, forcefield='mmff94', localopt=True, steps=50):
     return molobject
 
 
-def mol_rotate(molobject, vector=[0, 0, 0, 0]):
+def mol_rotate(molobject, vector=None):
     """
     Rotate molecule coordinate frame by a vector describing x,y,z and angle
     """
+
+    if vector is None:
+        vector = [0, 0, 0, 0]
 
     if molobject.toolkit != 'pybel':
         print('Rotation only supported by OpenBabel Pybel object')
@@ -226,13 +229,14 @@ def mol_copy(molobject):
     return mol_read(mol_to_string, mol_format=molobject.mol_format)
 
 
-def mol_combine_rotations(molobject, rotations=[]):
+def mol_combine_rotations(molobject, rotations=None):
     """
     Takes a pybel molecule and array of rotations to perform on it
     Returns array with rotated pybel molecules
     """
 
     rotated_mols = [molobject]
+    rotations = rotations or []
     for i in rotations:
 
         mol = mol_copy(molobject)

@@ -242,5 +242,5 @@ class CinfonyPackageManager(collections.MutableMapping):
             print('Syntax error on import of package {0}: {1}'.format(package, e))
         except KeyError as e:
             print('Package {0}: not found.'.format(package))
-        except:
+        except Exception:
             print('Unexpected error for package {0}: {1}'.format(package, sys.exc_info()[0]))

@@ -53,11 +53,11 @@ class CheminfoPybelDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase):
                 'CC(Oc1ccccc1C(O)=O)=O': 24}
 
 
-# @unittest2.skipIf('rdk' not in AVAIL_DESC, "RDKit software not available or no desc.")
-# class CheminfoRDkitDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase):
-#     toolkit_name = 'rdk'
-#     gen_desc = {'c1(cccnc1Nc1cc(ccc1)C(F)(F)F)C(=O)O': 200,
-#                 'CC(Oc1ccccc1C(O)=O)=O': 200}
+@unittest2.skipIf('rdk' not in AVAIL_DESC, "RDKit software not available or no desc.")
+class CheminfoRDkitDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase):
+    toolkit_name = 'rdk'
+    gen_desc = {'c1(cccnc1Nc1cc(ccc1)C(F)(F)F)C(=O)O': 200,
+                'CC(Oc1ccccc1C(O)=O)=O': 200}
 
 
 @unittest2.skipIf('cdk' not in AVAIL_DESC, "CDK software not available or no desc.")
@@ -87,12 +87,12 @@ class CheminfoIndigoDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase)
 
 
 @unittest2.skipIf('silverwebel' not in AVAIL_DESC, "Silverwebel software not available or no desc.")
-class CheminfoIndigoDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase):
+class CheminfoSilverWebelDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase):
 
     toolkit_name = 'silverwebel'
 
 
 @unittest2.skipIf('jchem' not in AVAIL_DESC, "JChem software not available or no desc.")
-class CheminfoIndigoDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase):
+class CheminfoJchemDescriptorTests(_CheminfoDescriptorBase, unittest2.TestCase):
 
     toolkit_name = 'jchem'

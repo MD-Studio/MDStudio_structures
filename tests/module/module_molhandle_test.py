@@ -285,12 +285,12 @@ class CheminfoIndigoMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
 
 
 @unittest2.skipIf('silverwebel' not in toolkits, "Silverwebel software not available.")
-class CheminfoIndigoMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+class CheminfoSilverWebelMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
 
     toolkit_name = 'silverwebel'
 
 
 @unittest2.skipIf('jchem' not in toolkits, "JChem software not available.")
-class CheminfoIndigoMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+class CheminfoJchemMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
 
     toolkit_name = 'jchem'

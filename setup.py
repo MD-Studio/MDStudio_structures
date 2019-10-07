@@ -40,10 +40,9 @@ setup(
     platforms=['Any'],
     packages=find_packages(),
     py_modules=[distribution_name],
-    install_requires=['biopython', 'cinfony==1.2', 'pandas',
-                      'Pillow', 'retrying', 'scipy'],
+    install_requires=['biopython', 'cinfony==1.2', 'pandas', 'Pillow', 'retrying', 'scipy'],
     extras_require={
-        'test': ['unittest2', 'coverage']},
+        'test': ['unittest2', 'coverage', 'numpy', 'pybel']},
     dependency_links=["https://github.com/cinfony/cinfony/tarball/master#egg=cinfony-1.2"],
     include_package_data=True,
     zip_safe=True,

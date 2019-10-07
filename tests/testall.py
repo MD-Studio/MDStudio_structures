@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 
 import os
 import unittest2
@@ -146,12 +147,9 @@ M  END
         """Test that invalid formats raise an error"""
         self.assertRaises(ValueError, self.RFformaterror)
 
-    def RFunitcellerror(self):
-        self.mols[0].unitcell
-
     def testRFunitcellerror(self):
         """Test that accessing the unitcell raises an error"""
-        self.assertRaises(AttributeError, self.RFunitcellerror)
+        self.assertRaises(AttributeError, self.mols[0].unitcell)
 
     def testRFconversion(self):
         """Convert to smiles"""
@@ -440,16 +438,17 @@ class TestWebel(TestToolkit):
         self.assertRaises(IOError, outputfile.write, mol)
         self.assertRaises(
             IOError, self.toolkit.Outputfile, "sdf", "testoutput.txt")
-        input = open("testoutput.txt", "r")
-        numdollar = len([x for x in input.readlines()
+
+        inputf = open("testoutput.txt", "r")
+        numdollar = len([x for x in inputf.readlines()
                          if x.rstrip() == "$$$$"])
-        input.close()
+        inputf.close()
         os.remove("testoutput.txt")
         self.assertEqual(numdollar, 2)
 
     def testattributes(self):
         """Test attributes like informats, descs and so on"""
-        informats, outformats = self.toolkit.informats, self.toolkit.outformats
+
         self.assertNotEqual(len(self.toolkit.informats.keys()), 0)
         self.assertNotEqual(len(self.toolkit.outformats.keys()), 0)
         self.assertNotEqual(len(self.toolkit.getdescs()), 0)

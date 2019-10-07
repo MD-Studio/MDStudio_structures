@@ -37,7 +37,7 @@ _formats = {'casid': 'CAS database ID',
 informats.update(_formats)
 
 
-def readstring(format, string):
+def readstring(informat, string):
     """
     Read a molecule from a string
 
@@ -49,39 +49,39 @@ def readstring(format, string):
     * keggid:     download molecule by KEGG ID
     * drugbankid: download molecule by DrugBank ID
 
-    :param format: see the informats variable for a list of available
-                   input formats
-    :type format:  :py:str
-    :param string: string to import
-    :type string:  :py:str
+    :param informat: see the informats variable for a list of available
+                     input formats
+    :type informat:  :py:str
+    :param string:   string to import
+    :type string:    :py:str
 
-    :return:       :Molecule
+    :return:         :Molecule
     """
 
     # PyDPI support for online databases. Downloaded as smiles string
     # and subsequently imported into rdk Molecule
-    if format in _formats:
+    if informat in _formats:
         smi = None
-        if format == 'casid':
+        if informat == 'casid':
             smi = getmol.GetMolFromCAS(string)
-        elif format == 'ncbiid':
+        elif informat == 'ncbiid':
             smi = getmol.GetMolFromNCBI(string)
-        elif format == 'keggid':
+        elif informat == 'keggid':
             smi = getmol.GetMolFromKegg(string)
-        elif format == 'drugbankid':
+        elif informat == 'drugbankid':
             smi = getmol.GetMolFromDrugbank(string)
         else:
             pass
 
         if smi:
-            format = 'smi'
+            informat = 'smi'
             string = smi
 
-    molobj = rdk_readstring(format, string)
+    molobj = rdk_readstring(informat, string)
     return Molecule(molobj.Mol)
 
 
-def readfile(format, filename):
+def readfile(informat, filename):
     """
     Iterate over the molecules in a file.
 
@@ -92,44 +92,45 @@ def readfile(format, filename):
     You can make a list of the molecules in a file using:
         mols = list(readfile("smi", "myfile.smi"))
 
-    :param format:   see the informats variable for a list of available
-                     input formats
-    :type format:    :py:str
-    :param filename: filename to import
-    :type filename:  :py:str
+    :param informat:   see the informats variable for a list of available
+                       input formats
+    :type informat:    :py:str
+    :param filename:   filename to import
+    :type filename:    :py:str
     """
+
     if not os.path.isfile(filename):
         raise IOError("No such file: '%s'" % filename)
-    format = format.lower()
+    informat = informat.lower()
+
     # Eagerly evaluate the supplier functions in order to report
     # errors in the format and errors in opening the file.
     # Then switch to an iterator...
-    if format == "sdf":
+    if informat == "sdf":
         iterator = Chem.SDMolSupplier(filename)
 
         def sdf_reader():
             for mol in iterator:
                 yield Molecule(mol)
         return sdf_reader()
-    elif format == "mol":
+    elif informat == "mol":
 
         def mol_reader():
             yield Molecule(Chem.MolFromMolFile(filename))
         return mol_reader()
-    elif format == "mol2":
+    elif informat == "mol2":
 
         def mol_reader():
             yield Molecule(Chem.MolFromMol2File(filename))
         return mol_reader()
-    elif format == "smi":
-        iterator = Chem.SmilesMolSupplier(filename, delimiter=" \t",
-                                          titleLine=False)
+    elif informat == "smi":
+        iterator = Chem.SmilesMolSupplier(filename, delimiter=" \t", titleLine=False)
 
         def smi_reader():
             for mol in iterator:
                 yield Molecule(mol)
         return smi_reader()
-    elif format == 'inchi' and Chem.INCHI_AVAILABLE:
+    elif informat == 'inchi' and Chem.INCHI_AVAILABLE:
 
         def inchi_reader():
             for line in open(filename, 'r'):
@@ -137,7 +138,7 @@ def readfile(format, filename):
                 yield Molecule(mol)
         return inchi_reader()
     else:
-        raise ValueError("%s is not a recognised RDKit format" % format)
+        raise ValueError("%s is not a recognised RDKit format" % informat)
 
 
 class Molecule(RdkMolecule):
