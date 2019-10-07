@@ -167,9 +167,9 @@ M  END
         mol = self.mols[0]
         mol.write("smi", "testoutput.txt")
         test = 'CCCC'
-        input = open("testoutput.txt", "r")
-        filecontents = input.readlines()[0].split("\t")[0].strip()
-        input.close()
+        inputf = open("testoutput.txt", "r")
+        filecontents = inputf.readlines()[0].split("\t")[0].strip()
+        inputf.close()
         self.assertEqual(filecontents, test)
         self.assertRaises(IOError, mol.write, "smi", "testoutput.txt")
         os.remove("testoutput.txt")
@@ -187,10 +187,10 @@ M  END
             IOError, outputfile.write, mol)
         self.assertRaises(
             IOError, self.toolkit.Outputfile, "sdf", "testoutput.txt")
-        input = open("testoutput.txt", "r")
-        numdollar = len([x for x in input.readlines()
+        inputf = open("testoutput.txt", "r")
+        numdollar = len([x for x in inputf.readlines()
                          if x.rstrip() == "$$$$"])
-        input.close()
+        inputf.close()
         os.remove("testoutput.txt")
         self.assertEqual(numdollar, 2)
 
@@ -344,7 +344,6 @@ class TestIndigo(TestToolkit):
 
     def testattributes(self):
         """Test attributes like informats, descs and so on"""
-        informats, outformats = self.toolkit.informats, self.toolkit.outformats
         self.assertNotEqual(len(self.toolkit.informats.keys()), 0)
         self.assertNotEqual(len(self.toolkit.outformats.keys()), 0)
         self.assertNotEqual(len(self.toolkit.fps), 0)
