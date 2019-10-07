@@ -4,10 +4,10 @@ language: generic
 os:
  - linux
 
-global:
-  env:
-    - COMMIT_AUTHOR_EMAIL: "f.zapata@esciencecenter.nl"
-
+branches:
+  only:
+    - master
+    -
 install:
   # install miniconda
   - wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
@@ -16,11 +16,12 @@ install:
   - hash -r
   - conda config --set always_yes yes --set changeps1 no --set auto_update_conda False
 
-  # install dependencies
+  # install (test) dependencies
   - (git clone git://github.com/MD-Studio/MDStudio.git --branch master --single-branch && pip install -e MDStudio/mdstudio)
   - conda install -c rdkit rdkit
   - conda install -c openbabel openbabel 
   - pip install "https://github.com/cinfony/cinfony/tarball/master#egg=cinfony-1.2"
+  - pip install codecov
   
   # install library
   - pip install .[test]
@@ -28,6 +29,9 @@ install:
 script:
   - cd tests && python .
 
-branches:
-  only:
-    - master
+  # Run code coverage
+  - coverage lie_structures/.coverage
+
+# Push the results back to codecov
+after_success:
+  - codecov
