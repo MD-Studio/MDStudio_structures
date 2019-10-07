@@ -2,12 +2,12 @@ sudo: false
 language: generic
 
 os:
- - linux
+  - linux
 python:
   - "2.7"
   - "3.5"
   - "3.6"
-  
+
 branches:
   only:
     - master
