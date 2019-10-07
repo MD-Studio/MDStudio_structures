@@ -34,48 +34,48 @@ class StructuresWampApi(
         return True
 
     @endpoint('chemical_similarity', 'chemical_similarity_request', 'chemical_similarity_response',
-              options=RegisterOptions(invoke='roundrobin'))
+              options=RegisterOptions(invoke=u'roundrobin'))
     def calculate_chemical_similarity(self, request, claims):
         request['workdir'] = os.path.abspath(request['workdir'])
         return super(StructuresWampApi, self).calculate_chemical_similarity(request, claims)
 
     @endpoint('descriptors', 'descriptors_request', 'descriptors_response',
-              options=RegisterOptions(invoke='roundrobin'))
+              options=RegisterOptions(invoke=u'roundrobin'))
     def get_descriptors(self, request, claims):
         request['workdir'] = os.path.abspath(request['workdir'])
         return super(StructuresWampApi, self).get_descriptors(request, claims)
 
-    @endpoint('convert', 'convert_request', 'convert_response', options=RegisterOptions(invoke='roundrobin'))
+    @endpoint('convert', 'convert_request', 'convert_response', options=RegisterOptions(invoke=u'roundrobin'))
     def convert_structures(self, request, claims):
         request['workdir'] = os.path.abspath(request['workdir'])
         return super(StructuresWampApi, self).convert_structures(request, claims)
 
-    @endpoint('addh', 'addh_request', 'addh_response', options=RegisterOptions(invoke='roundrobin'))
+    @endpoint('addh', 'addh_request', 'addh_response', options=RegisterOptions(invoke=u'roundrobin'))
     def addh_structures(self, request, claims):
         request['workdir'] = os.path.abspath(request['workdir'])
         return super(StructuresWampApi, self).addh_structures(request, claims)
 
-    @endpoint('removeh', 'removeh_request', 'removeh_response', options=RegisterOptions(invoke='roundrobin'))
+    @endpoint('removeh', 'removeh_request', 'removeh_response', options=RegisterOptions(invoke=u'roundrobin'))
     def removeh_structures(self, request, claims):
         request['workdir'] = os.path.abspath(request['workdir'])
         return super(StructuresWampApi, self).removeh_structures(request, claims)
 
-    @endpoint('make3d', 'make3d_request', 'make3d_response', options=RegisterOptions(invoke='roundrobin'))
+    @endpoint('make3d', 'make3d_request', 'make3d_response', options=RegisterOptions(invoke=u'roundrobin'))
     def make3d_structures(self, request, claims):
         request['workdir'] = os.path.abspath(request['workdir'])
         return super(StructuresWampApi, self).make3d_structures(request, claims)
 
-    @endpoint('info', 'info_request', 'info_response', options=RegisterOptions(invoke='roundrobin'))
+    @endpoint('info', 'info_request', 'info_response', options=RegisterOptions(invoke=u'roundrobin'))
     def structure_attributes(self, request, claims):
         return super(StructuresWampApi, self).structure_attributes(request, claims)
 
-    @endpoint('rotate', 'rotate_request', 'rotate_response', options=RegisterOptions(invoke='roundrobin'))
+    @endpoint('rotate', 'rotate_request', 'rotate_response', options=RegisterOptions(invoke=u'roundrobin'))
     def rotate_structures(self, request, claims):
         request['workdir'] = os.path.abspath(request['workdir'])
         return super(StructuresWampApi, self).rotate_structures(request, claims)
 
     @endpoint('supported_toolkits', 'supported_toolkits_request', 'supported_toolkits_response',
-              options=RegisterOptions(invoke='roundrobin'))
+              options=RegisterOptions(invoke=u'roundrobin'))
     def supported_toolkits(self, request, claims):
         """
         Query available toolkits.
@@ -88,7 +88,7 @@ class StructuresWampApi(
         return {'status': 'completed', 'toolkits': toolkits.keys()}
 
     @endpoint('remove_residues', 'remove_residues_request', 'remove_residues_response',
-              options=RegisterOptions(invoke='roundrobin'))
+              options=RegisterOptions(invoke=u'roundrobin'))
     def remove_residues(self, request, claims):
         """
         Remove residues from a PDB structure
@@ -135,7 +135,7 @@ class StructuresWampApi(
         return {'status': status, 'mol': result}
 
     @endpoint('retrieve_rcsb_structure', 'retrieve_rcsb_structure_request', 'retrieve_rcsb_structure_response',
-              options=RegisterOptions(invoke='roundrobin'))
+              options=RegisterOptions(invoke=u'roundrobin'))
     def fetch_rcsb_structure(self, request, claims):
         """
         Download a structure file from the RCSB database using a PDB ID
