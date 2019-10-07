@@ -9,7 +9,7 @@ import pybel
 import unittest2
 
 from lie_structures.cheminfo_pkgmanager import CinfonyPackageManager
-from lie_structures.cheminfo_molhandle import (mol_addh, mol_make3D, mol_read, mol_removeh, mol_write)
+from lie_structures.cheminfo_molhandle import mol_addh, mol_make3D, mol_read, mol_removeh, mol_write
 
 toolkits = CinfonyPackageManager({})
 
