@@ -8,6 +8,9 @@ python:
   - "3.5"
   - "3.6"
 
+env:
+  - CODECOV_TOKEN="09d5b816-211b-4ca8-b833-2dfaea31afb1"
+
 install:
   # install miniconda
   - wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
