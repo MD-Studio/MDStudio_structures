@@ -9,7 +9,7 @@ python:
   - "3.6"
 
 env:
-  - CODECOV_TOKEN="09d5b816-211b-4ca8-b833-2dfaea31afb1"
+  - JPYPE_JVM=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
 
 install:
   # install miniconda
@@ -22,7 +22,11 @@ install:
   # install (test) dependencies
   - (git clone git://github.com/MD-Studio/MDStudio.git --branch master --single-branch && pip install -e MDStudio/mdstudio)
   - conda install -c rdkit rdkit
-  - conda install -c openbabel openbabel 
+  - conda install -c openbabel openbabel
+  - conda install -c bioconda java-jdk
+  - conda install -c speleo3 indigo
+  - wget https://github.com/cdk/cdk/releases/download/cdk-2.1.1/cdk-2.1.1.jar
+  - wget https://bitbucket.org/dan2097/opsin/downloads/opsin-1.3.0-jar-with-dependencies.jar
   - pip install "https://github.com/cinfony/cinfony/tarball/master#egg=cinfony-1.2"
   - pip install codecov
   
@@ -30,7 +34,7 @@ install:
   - pip install .[test]
   
 script:
-  - (cd tests && coverage run --branch -m unittest discover -vvv)
+  - cd tests && python .
 
 # Push the results back to codecov
 after_success:
