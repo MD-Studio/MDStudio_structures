@@ -1,10 +1,10 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# package: lie_docking
+# package: MDStudio_docking
 # file: setup.py
 #
-# Part of ‘lie_docking’, a package providing molecular docking functionality
+# Part of ‘MDStudio_docking’, a package providing molecular docking functionality
 # for the LIEStudio package.
 #
 # Copyright © 2016 Marc van Dijk, VU University Amsterdam, the Netherlands
@@ -23,12 +23,12 @@
 
 from setuptools import setup, find_packages
 
-distribution_name = 'lie_structures'
+distribution_name = 'MDStudio_structures'
 
 setup(
     name=distribution_name,
     version=0.2,
-    description='MDStudio structure database module',
+    description='MDStudio structure based cheminformatics tools',
     author="""
     Marc van Dijk - VU University - Amsterdam
     Paul Visscher - Zefiros Software (www.zefiros.eu)
@@ -36,7 +36,7 @@ setup(
     author_email=['m4.van.dijk@vu.nl', 'f.zapata@esciencecenter.nl'],
     url='https://github.com/MD-Studio/MDStudio',
     license='Apache Software License 2.0',
-    keywords='MDStudio structures database',
+    keywords='MDStudio structures cheminformatics',
     platforms=['Any'],
     packages=find_packages(),
     py_modules=[distribution_name],

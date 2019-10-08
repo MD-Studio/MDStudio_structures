@@ -27,12 +27,12 @@ ENV JPYPE_JVM=/usr/local/jre/lib/amd64/server/libjvm.so
 
 RUN pip install "https://github.com/cinfony/cinfony/tarball/master#egg=cinfony-1.2"
 
-COPY . /home/mdstudio/lie_structures
+COPY . /home/mdstudio/MDStudio_structures
 
-RUN chown mdstudio:mdstudio /home/mdstudio/lie_structures
+RUN chown mdstudio:mdstudio /home/mdstudio/MDStudio_structures
 
-WORKDIR /home/mdstudio/lie_structures
+WORKDIR /home/mdstudio/MDStudio_structures
 
 RUN pip install -e .
 
-CMD ["bash", "entry_point_lie_structures.sh"]
+CMD ["bash", "entry_point_MDStudio_structures.sh"]

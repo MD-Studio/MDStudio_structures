@@ -6,7 +6,7 @@ file: wamp_services.py
 WAMP service methods the module exposes.
 """
 
-from lie_structures.cheminfo_molhandle import (
+from MDStudio_structures.cheminfo_molhandle import (
      mol_addh, mol_attributes, mol_make3D, mol_read, mol_removeh, mol_write, mol_combine_rotations,
      mol_validate_file_object)
 
@@ -40,9 +40,9 @@ class CheminfoMolhandleWampApi(object):
         """
         Convert input file format to a different format. For a detailed
         input description see the file:
-           lie_structures/schemas/endpoints/convert_request_v1.json
+           MDStudio_structures/schemas/endpoints/convert_request_v1.json
         And for a detailed description of the output see:
-           lie_structures/schemas/endpoints/convert_response_v1.json
+           MDStudio_structures/schemas/endpoints/convert_response_v1.json
         """
         molobject = self.read_mol(request)
 
@@ -55,9 +55,9 @@ class CheminfoMolhandleWampApi(object):
         """
         Add hydrogens to the input structue. For a detailed
         input description see the file:
-           lie_structures/schemas/endpoints/addh_request_v1.json
+           MDStudio_structures/schemas/endpoints/addh_request_v1.json
         And for a detailed description of the output see:
-           lie_structures/schemaS/endpoints/addh_response_v1.json
+           MDStudio_structures/schemaS/endpoints/addh_response_v1.json
         """
 
         molobject = mol_addh(
@@ -75,9 +75,9 @@ class CheminfoMolhandleWampApi(object):
         """
         Remove hydrogens from the input structure. For a detailed
         input description see the file:
-           lie_structures/schemas/endpoints/removeh_request_v1.json
+           MDStudio_structures/schemas/endpoints/removeh_request_v1.json
         And for a detailed description of the output see:
-           lie_structures/schemas/endpoints/removeh_response_v1.json
+           MDStudio_structures/schemas/endpoints/removeh_response_v1.json
         """
         molobject = mol_removeh(self.read_mol(request))
 
@@ -91,9 +91,9 @@ class CheminfoMolhandleWampApi(object):
         Convert 1D or 2D structure representation to 3D.
         For a detailed
         input description see the file:
-          lie_structures/schemas/endpoints/make3d_request_v1.json
+          MDStudio_structures/schemas/endpoints/make3d_request_v1.json
         And for a detailed description of the output see:
-          lie_structures/schemas/endpoints/make3d_response_v1.json
+          MDStudio_structures/schemas/endpoints/make3d_response_v1.json
         """
         molobject = mol_make3D(
             self.read_mol(request),
@@ -110,10 +110,10 @@ class CheminfoMolhandleWampApi(object):
         """
         Return common structure attributes
         For a detailed input description see the file:
-          lie_structures/schemas/endpoints/info_request_v1.json
+          MDStudio_structures/schemas/endpoints/info_request_v1.json
 
         And for a detailed description of the output see:
-          lie_structures/schemas/endpoints/info_response_v1.json
+          MDStudio_structures/schemas/endpoints/info_response_v1.json
         """
         # Retrieve the WAMP session information
         molobject = self.read_mol(request)
@@ -125,10 +125,10 @@ class CheminfoMolhandleWampApi(object):
         """
         Rotate the structure around an axis defined by x,y,z.
         For a detailed input description see the file:
-          lie_structures/schemas/endpoints/rotate_request_v1.json
+          MDStudio_structures/schemas/endpoints/rotate_request_v1.json
 
         And for a detailed description of the output see:
-          lie_structures/schemas/endpoints/rotate_response_v1.json
+          MDStudio_structures/schemas/endpoints/rotate_response_v1.json
 
         """
         # Read in the molecule

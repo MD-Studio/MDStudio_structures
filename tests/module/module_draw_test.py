@@ -8,8 +8,8 @@ supported cheminformatics packages.
 import os
 import unittest2
 
-from lie_structures.cheminfo_molhandle import mol_read
-from lie_structures import toolkits
+from MDStudio_structures.cheminfo_molhandle import mol_read
+from MDStudio_structures import toolkits
 
 
 class CheminfoMolDrawTests(unittest2.TestCase):

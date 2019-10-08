@@ -1,8 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://mdstudio/schemas/resources/read_write_mol.v1.json",
-  "title": "input output config",
-  "description": "Config to read and write a mol",
+  "id": "http://mdstudio/schemas/endpoints/removeh_request.v1.json",
+  "title": "Remove hydrogens input",
+  "description": "Remove hydrogens from molecule",
   "type": "object",
   "properties": {
     "toolkit": {
@@ -11,8 +11,12 @@
       "default": "pybel"
     },
     "mol": {
-      "$ref": "resource://mdgroup/lie_structures/path_file/v1",
-      "description": "Molecular representation"
+      "$ref": "resource://mdgroup/MDStudio_structures/path_file/v1",
+      "description": "Moleculare file"
+    },
+    "input_format": {
+      "type": "string",
+      "description": "Structure input file format"
     },
     "output_format": {
       "type": "string",
@@ -24,6 +28,7 @@
     }
   },
   "required": [
-    "mol"
+    "mol",
+    "output_format"
   ]
 }

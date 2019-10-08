@@ -1,7 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://mdstudio/schemas/endpoints/make3d_response.v1.json",
-  "description": "create a guess 3D representation of a molecule",
+  "id": "http://mdstudio/schemas/endpoints/retrieve_rcsb_response.v1.json",
+  "title": "Download PDB output",
+  "description": "Download a structure file from the RCSB database using a PDB ID",
   "type": "object",
   "properties": {
     "status": {
@@ -13,12 +14,12 @@
       ]
     },
     "mol": {
-      "$ref": "resource://mdgroup/lie_structures/path_file/v1",
+      "$ref": "resource://mdgroup/MDStudio_structures/path_file/v1",
       "description": "Resulting molecule"
     }
   },
   "required": [
-    "mol",
-    "status"
+    "status",
+    "mol"
   ]
-}
+} 

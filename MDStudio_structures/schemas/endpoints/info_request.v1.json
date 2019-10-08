@@ -1,8 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://mdstudio/schemas/endpoints/removeh_request.v1.json",
-  "title": "Remove hydrogens input",
-  "description": "Remove hydrogens from molecule",
+  "id": "http://mdstudio/schemas/endpoints/info_request.v1.json",
+  "description": "Molecular attributes",
   "type": "object",
   "properties": {
     "toolkit": {
@@ -11,16 +10,12 @@
       "default": "pybel"
     },
     "mol": {
-      "$ref": "resource://mdgroup/lie_structures/path_file/v1",
-      "description": "Moleculare file"
+      "$ref": "resource://mdgroup/MDStudio_structures/path_file/v1",
+      "description": "Molecular geometry"
     },
     "input_format": {
       "type": "string",
       "description": "Structure input file format"
-    },
-    "output_format": {
-      "type": "string",
-      "description": "Structure output file format"
     },
     "workdir": {
       "type": "string",
@@ -28,7 +23,6 @@
     }
   },
   "required": [
-    "mol",
-    "output_format"
+    "mol"
   ]
 }

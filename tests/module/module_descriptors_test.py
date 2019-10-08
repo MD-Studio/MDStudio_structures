@@ -6,8 +6,8 @@ Unit tests for fingerprint methods
 
 import unittest2
 
-from lie_structures.cheminfo_descriptors import available_descriptors
-from lie_structures.cheminfo_molhandle import mol_read
+from MDStudio_structures.cheminfo_descriptors import available_descriptors
+from MDStudio_structures.cheminfo_molhandle import mol_read
 
 AVAIL_DESC = available_descriptors()
 TEST_FILES = {'c1(cccnc1Nc1cc(ccc1)C(F)(F)F)C(=O)O': 'smi',

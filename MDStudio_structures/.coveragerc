@@ -6,7 +6,7 @@ omit =
 
 [paths]
 source =
-    lie_structures/**.py
+    MDStudio_structures/**.py
 
 [report]
 show_missing = true

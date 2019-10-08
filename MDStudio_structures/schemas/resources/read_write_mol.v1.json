@@ -1,7 +1,8 @@
 {
   "$schema": "http://json-schema.org/draft-04/schema#",
-  "id": "http://mdstudio/schemas/endpoints/info_request.v1.json",
-  "description": "Molecular attributes",
+  "id": "http://mdstudio/schemas/resources/read_write_mol.v1.json",
+  "title": "input output config",
+  "description": "Config to read and write a mol",
   "type": "object",
   "properties": {
     "toolkit": {
@@ -10,12 +11,12 @@
       "default": "pybel"
     },
     "mol": {
-      "$ref": "resource://mdgroup/lie_structures/path_file/v1",
-      "description": "Molecular geometry"
+      "$ref": "resource://mdgroup/MDStudio_structures/path_file/v1",
+      "description": "Molecular representation"
     },
-    "input_format": {
+    "output_format": {
       "type": "string",
-      "description": "Structure input file format"
+      "description": "Structure output file format"
     },
     "workdir": {
       "type": "string",
