@@ -30,7 +30,7 @@ install:
   - pip install .[test]
   
 script:
-  - cd tests && python .
+  - (cd tests && coverage run --branch -m unittest discover -vvv)
 
 # Push the results back to codecov
 after_success:
