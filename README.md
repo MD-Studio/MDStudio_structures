@@ -19,3 +19,9 @@ This service combines the functionality of 9 popular cheminformatics packages th
 * Indigo
 * JChem
 * PyDPI
+
+## Installation Quickstart
+The best way to install and use MDStudio Structures and all of its dependencies is by running the precompiled
+Docker container:
+    
+    docker pull mdstudio/mdstudio_structures

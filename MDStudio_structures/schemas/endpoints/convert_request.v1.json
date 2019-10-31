@@ -3,5 +3,5 @@
     "id": "http://mdstudio/schemas/endpoints/convert_request.v1.json",
     "title": "Convert molecule input",
     "description": "Convert molecule representation",
-    "$ref": "resource://mdgroup/MDStudio_structures/read_write_mol/v1"
+    "$ref": "resource://mdgroup/mdstudio_structures/read_write_mol/v1"
 }

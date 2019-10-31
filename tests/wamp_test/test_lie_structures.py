@@ -152,45 +152,45 @@ class RunStructures(ComponentSession):
     @chainable
     def on_run(self):
         toolkits = yield self.call(
-            'mdgroup.MDStudio_structures.endpoint.supported_toolkits',
+            'mdgroup.mdstudio_structures.endpoint.supported_toolkits',
             {})
         if 'pybel' not in toolkits['toolkits']:
             raise AssertionError('PyBel toolkit not available')
         print('toolkits available: {}'.format(toolkits['toolkits']))
 
         convert = yield self.call(
-            u'mdgroup.MDStudio_structures.endpoint.convert', dict_convert)
+            u'mdgroup.mdstudio_structures.endpoint.convert', dict_convert)
         if not compare_molecules(convert['mol']['content'], join(root, u'files/structure.mol2')):
             raise AssertionError('Structures are not the same')
         print('converting {} from smile to mol2 succeeded!'.format(
             dict_convert['mol']))
 
         make3d = yield self.call(
-            'mdgroup.MDStudio_structures.endpoint.make3d', dict_make3d)
+            'mdgroup.mdstudio_structures.endpoint.make3d', dict_make3d)
         if not compare_molecules(make3d['mol']['content'], join(root, 'files/structure3D.mol2')):
             raise AssertionError('Structures are not the same')
         print('successful creation of a 3D structure for {}'.format(
             dict_convert['mol']))
 
         addh = yield self.call(
-            'mdgroup.MDStudio_structures.endpoint.addh', dict_addh)
+            'mdgroup.mdstudio_structures.endpoint.addh', dict_addh)
         if not compare_molecules(addh['mol']['content'], join(root, 'files/structureHs.mol2')):
             raise AssertionError('Structures are not the same')
         print('added hydrogens sucessfully!')
 
-        info = yield self.call('mdgroup.MDStudio_structures.endpoint.info', dict_info)
+        info = yield self.call('mdgroup.mdstudio_structures.endpoint.info', dict_info)
         print('info', info)
         atts = info['attributes']
         if not all((atts['formula'] == 'C7H12O2', atts['exactmass'] - 128.083729624 < 1e-5)):
             raise AssertionError('Structures are not the same')
         print('attributes information successfully retrieved!')
 
-        rotate = yield self.call('mdgroup.MDStudio_structures.endpoint.rotate', dict_rotate)
+        rotate = yield self.call('mdgroup.mdstudio_structures.endpoint.rotate', dict_rotate)
         if not compare_molecules(rotate['mol']['content'], join(root, 'files/rotations.mol2')):
             raise AssertionError('Structures are not the same')
         print('rotatation method succeeded!')
 
-        similarity = yield self.call('mdgroup.MDStudio_structures.endpoint.chemical_similarity', dict_similarity)
+        similarity = yield self.call('mdgroup.mdstudio_structures.endpoint.chemical_similarity', dict_similarity)
         if not similarity['results']['idx_max_sim']['0'] == 20:
             raise AssertionError('Similarity not the same')
         print('Similarity method succeeded!')
