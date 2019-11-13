@@ -31,7 +31,7 @@ install:
   - pip install codecov
   
   # install library
-  - pip install MDStudio_structures/MDStudio_cinfony
+  - pip install MDStudio_cinfony/
   - pip install .[test]
   
 script:
