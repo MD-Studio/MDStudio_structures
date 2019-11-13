@@ -1,4 +1,3 @@
-
 # Install all the cheminformatic packages
 FROM mdstudio/mdstudio_docker_conda:0.0.3
 
@@ -24,14 +23,13 @@ ENV CLASSPATH=/home/mdstudio/cdk-2.1.1.jar:/home/mdstudio/opsin-1.3.0-jar-with-d
 
 ENV JPYPE_JVM=/usr/local/jre/lib/amd64/server/libjvm.so
 
-
-RUN pip install "https://github.com/cinfony/cinfony/tarball/master#egg=cinfony-1.2"
-
 COPY . /home/mdstudio/MDStudio_structures
 
 RUN chown mdstudio:mdstudio /home/mdstudio/MDStudio_structures
 
 WORKDIR /home/mdstudio/MDStudio_structures
+
+RUN pip install -e MDStudio_cinfony
 
 RUN pip install -e .
 
