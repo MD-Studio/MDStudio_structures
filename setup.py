@@ -5,7 +5,7 @@
 # file: setup.py
 #
 # Part of ‘MDStudio_docking’, a package providing molecular docking functionality
-# for the LIEStudio package.
+# for the MDStudio package.
 #
 # Copyright © 2016 Marc van Dijk, VU University Amsterdam, the Netherlands
 #
@@ -41,8 +41,7 @@ setup(
     packages=find_packages(),
     py_modules=[distribution_name],
     install_requires=['biopython', 'cinfony==1.2', 'pandas', 'Pillow', 'retrying', 'scipy', 'JPype1==0.6.3', 'pydpi'],
-    extras_require={
-        'test': ['unittest2', 'coverage', 'numpy']},
+    extras_require={'test': ['unittest2', 'coverage', 'numpy']},
     dependency_links=["https://github.com/cinfony/cinfony/tarball/master#egg=cinfony-1.2"],
     include_package_data=True,
     zip_safe=True,
