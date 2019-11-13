@@ -156,7 +156,7 @@ class _CheminfoMolhandleBase(object):
             toolkit=self.toolkit_name)
         mol = mol_addh(mol)
 
-        mol_reference = pybel.readfile('mol2', 'files/ccncc_3d.mol2').next()
+        mol_reference = pybel.readfile('mol2', os.path.join(self.currpath, 'files/ccncc_3d.mol2')).next()
 
         # compare properties
         p1 = mol.formula == mol_reference.formula
