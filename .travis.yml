@@ -26,7 +26,7 @@ install:
   - conda install -c openbabel openbabel
   - conda install -c bioconda java-jdk
   - conda install -c conda-forge jpype1==0.6.3
-  - conda install -c pythonnet pythonnet
+  - conda install -c conda-forge pythonnet
   - conda install -c speleo3 indigo
   - conda install -c rdkit rdkit=="2018.03.3.0"
   - wget https://github.com/cdk/cdk/releases/download/cdk-2.1.1/cdk-2.1.1.jar
