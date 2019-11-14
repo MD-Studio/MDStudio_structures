@@ -149,6 +149,7 @@ def readfile(format, filename, opt=None):
             yield Molecule(obmol)
             obmol = ob.OBMol()
             notatend = obconversion.Read(obmol)
+
     return filereader()
 
 

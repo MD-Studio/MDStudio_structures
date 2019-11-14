@@ -8,6 +8,7 @@ Cinfony driven cheminformatics molecule read, write and manipulate functions
 
 import re
 import os
+import sys
 
 from . import toolkits
 
@@ -72,7 +73,11 @@ def mol_read(mol, mol_format=None, from_file=False, toolkit='pybel', default_mol
 
     try:
         if from_file:
-            molobject = toolkit_driver.readfile(mol_format, mol).__next__()
+            molobject = toolkit_driver.readfile(mol_format, mol)
+            if sys.version_info.major == 2:
+                molobject = molobject.next()
+            else:
+                molobject = next(molobject)
         else:
             molobject = toolkit_driver.readstring(mol_format, mol)
     except IOError as e:
