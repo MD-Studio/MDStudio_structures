@@ -6,13 +6,13 @@ supported cheminformatics packages.
 """
 
 import os
-import unittest2
+import unittest
 
 from MDStudio_structures.cheminfo_molhandle import mol_read
 from MDStudio_structures import toolkits
 
 
-class CheminfoMolDrawTests(unittest2.TestCase):
+class CheminfoMolDrawTests(unittest.TestCase):
 
     tmp_files = []
     currpath = os.path.dirname(__file__)

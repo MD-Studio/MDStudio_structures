@@ -3,7 +3,7 @@
 """
 Unit tests for fingerprint methods
 """
-import unittest2
+import unittest
 import scipy.spatial.distance as hr
 
 from MDStudio_structures.cheminfo_fingerprint import (available_fingerprints, mol_fingerprint_comparison,
@@ -14,7 +14,7 @@ from MDStudio_structures.cheminfo_molhandle import mol_read
 AVAIL_FPS = available_fingerprints()
 
 
-class CheminfoFingerprintComparisonTests(unittest2.TestCase):
+class CheminfoFingerprintComparisonTests(unittest.TestCase):
     toolkit_name = 'rdk'
 
     @classmethod

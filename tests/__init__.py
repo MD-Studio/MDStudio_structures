@@ -10,7 +10,7 @@ Python function for MDStudio_structures module, run as:
 
 import os
 import sys
-import unittest2
+import unittest
 import logging
 
 # Init basic logging
@@ -27,6 +27,6 @@ def module_test_suite():
     """
 
     testpath = os.path.join(os.path.dirname(__file__), 'module')
-    loader = unittest2.TestLoader()
+    loader = unittest.TestLoader()
     suite = loader.discover(testpath, pattern='module_*.py')
     return suite

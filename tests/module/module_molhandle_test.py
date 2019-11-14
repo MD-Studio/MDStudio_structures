@@ -6,7 +6,7 @@ Unit tests for the Open Babel methods
 
 import os
 import pybel
-import unittest2
+import unittest
 
 from MDStudio_structures.cheminfo_pkgmanager import CinfonyPackageManager
 from MDStudio_structures.cheminfo_molhandle import mol_addh, mol_make3D, mol_read, mol_removeh, mol_write
@@ -34,7 +34,7 @@ class _CheminfoMolhandleBase(object):
 
         Read structure files for docking
         """
-        print(cls.currpath)
+
         with open(os.path.join(cls.currpath, 'files/ligand.mol2'), 'r') as lfile:
             cls.ligand = lfile.read()
 
@@ -182,8 +182,8 @@ class _CheminfoMolhandleBase(object):
     #                                                  [0, 1, 0, -90], [0, 0, 1, 90], [0, 0, 1, -90]])
 
 
-@unittest2.skipIf('pybel' not in toolkits, "Pybel software not available.")
-class CheminfoPybelMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+@unittest.skipIf('pybel' not in toolkits, "Pybel software not available.")
+class CheminfoPybelMolhandleTests(_CheminfoMolhandleBase, unittest.TestCase):
 
     toolkit_name = 'pybel'
     informats = {'inchi': "InChI=1/C6H6/c1-2-4-6-5-3-1/h1-6H"}
@@ -193,8 +193,8 @@ class CheminfoPybelMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
                   'can': 'c1ccccc1'}
 
 
-@unittest2.skipIf('rdk' not in toolkits, "RDKit software not available.")
-class CheminfoRDkitMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+@unittest.skipIf('rdk' not in toolkits, "RDKit software not available.")
+class CheminfoRDkitMolhandleTests(_CheminfoMolhandleBase, unittest.TestCase):
 
     toolkit_name = 'rdk'
     informats = {'inchi': "InChI=1/C6H6/c1-2-4-6-5-3-1/h1-6H"}
@@ -204,8 +204,8 @@ class CheminfoRDkitMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
                   'can': 'c1ccccc1'}
 
 
-@unittest2.skipIf('pydpi' not in toolkits, "PyDPI software not available.")
-class CheminfoPyDPIMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+@unittest.skipIf('pydpi' not in toolkits, "PyDPI software not available.")
+class CheminfoPyDPIMolhandleTests(_CheminfoMolhandleBase, unittest.TestCase):
 
     toolkit_name = 'pydpi'
     informats = {'inchi': "InChI=1/C6H6/c1-2-4-6-5-3-1/h1-6H",
@@ -219,14 +219,14 @@ class CheminfoPyDPIMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
                   'can': 'c1ccccc1'}
 
 
-@unittest2.skipIf('cdk' not in toolkits, "CDK software not available.")
-class CheminfoCDKMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+@unittest.skipIf('cdk' not in toolkits, "CDK software not available.")
+class CheminfoCDKMolhandleTests(_CheminfoMolhandleBase, unittest.TestCase):
 
     toolkit_name = 'cdk'
 
 
-@unittest2.skipIf('webel' not in toolkits, "Webel software not available.")
-class CheminfoWebelMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+@unittest.skipIf('webel' not in toolkits, "Webel software not available.")
+class CheminfoWebelMolhandleTests(_CheminfoMolhandleBase, unittest.TestCase):
 
     toolkit_name = 'webel'
     informats = {'inchi': "InChI=1/C6H6/c1-2-4-6-5-3-1/h1-6H"}
@@ -243,8 +243,8 @@ class CheminfoWebelMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
         pass
 
 
-@unittest2.skipIf('opsin' not in toolkits, "Opsin software not available.")
-class CheminfoOpsinMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+@unittest.skipIf('opsin' not in toolkits, "Opsin software not available.")
+class CheminfoOpsinMolhandleTests(_CheminfoMolhandleBase, unittest.TestCase):
 
     toolkit_name = 'opsin'
     informats = {'iupac': 'benzene'}
@@ -270,8 +270,8 @@ class CheminfoOpsinMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
         pass
 
 
-@unittest2.skipIf('indy' not in toolkits, "Indigo software not available.")
-class CheminfoIndigoMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+@unittest.skipIf('indy' not in toolkits, "Indigo software not available.")
+class CheminfoIndigoMolhandleTests(_CheminfoMolhandleBase, unittest.TestCase):
 
     toolkit_name = 'indy'
     informats = {'inchi': "InChI=1/C6H6/c1-2-4-6-5-3-1/h1-6H"}
@@ -284,13 +284,13 @@ class CheminfoIndigoMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
         pass
 
 
-@unittest2.skipIf('silverwebel' not in toolkits, "Silverwebel software not available.")
-class CheminfoSilverWebelMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+@unittest.skipIf('silverwebel' not in toolkits, "Silverwebel software not available.")
+class CheminfoSilverWebelMolhandleTests(_CheminfoMolhandleBase, unittest.TestCase):
 
     toolkit_name = 'silverwebel'
 
 
-@unittest2.skipIf('jchem' not in toolkits, "JChem software not available.")
-class CheminfoJchemMolhandleTests(_CheminfoMolhandleBase, unittest2.TestCase):
+@unittest.skipIf('jchem' not in toolkits, "JChem software not available.")
+class CheminfoJchemMolhandleTests(_CheminfoMolhandleBase, unittest.TestCase):
 
     toolkit_name = 'jchem'

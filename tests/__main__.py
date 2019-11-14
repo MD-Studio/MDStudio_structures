@@ -8,7 +8,7 @@ Python runner for MDStudio_structures module unit tests, run as:
 
 import os
 import sys
-import unittest2
+import unittest
 import logging
 
 # Init basic logging
@@ -23,12 +23,12 @@ def module_test_suite():
     """
     Run MDStudio_structures module unit tests
     """
-    loader = unittest2.TestLoader()
+    loader = unittest.TestLoader()
 
     print('Running MDStudio_structures unittests')
     testpath = os.path.join(os.path.dirname(__file__), 'module')
     suite = loader.discover(testpath, pattern='module_*.py')
-    runner = unittest2.TextTestRunner(verbosity=2)
+    runner = unittest.TextTestRunner(verbosity=2)
 
     return runner.run(suite).wasSuccessful()
 
