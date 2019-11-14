@@ -8,11 +8,6 @@ python:
   - "3.5"
   - "3.6"
 
-env:
-  global:
-    - JPYPE_JVM=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
-    - CLASSPATH=$HOME/cdk-2.1.1.jar:$HOME/opsin-1.3.0-jar-with-dependencies.jar:$CLASSPATH
-
 install:
   # install miniconda
   - wget https://repo.continuum.io/miniconda/Miniconda2-latest-Linux-x86_64.sh -O miniconda.sh
@@ -38,6 +33,8 @@ install:
   - pip install .[test]
   
 script:
+  - export JPYPE_JVM=/usr/lib/jvm/java-8-openjdk-amd64/jre/lib/amd64/server/libjvm.so
+  - export CLASSPATH=$HOME/cdk-2.1.1.jar:$HOME/opsin-1.3.0-jar-with-dependencies.jar:$CLASSPATH
   - coverage run tests
 
 # Push the results back to codecov
