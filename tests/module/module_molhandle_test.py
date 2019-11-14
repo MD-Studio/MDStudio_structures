@@ -34,7 +34,7 @@ class _CheminfoMolhandleBase(object):
 
         Read structure files for docking
         """
-
+        print(cls.currpath)
         with open(os.path.join(cls.currpath, 'files/ligand.mol2'), 'r') as lfile:
             cls.ligand = lfile.read()
 

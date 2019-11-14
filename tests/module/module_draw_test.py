@@ -30,10 +30,14 @@ class CheminfoMolDrawTests(unittest2.TestCase):
     def test_2d_draw(self):
 
         for toolkit in toolkits:
+
+            # Does not support draw to file
+            if toolkit == 'silverwebel':
+                continue
+
             mol = mol_read('c1(cccnc1Nc1cc(ccc1)C(F)(F)F)C(=O)O', mol_format='smi', toolkit=toolkit)
             outfile = os.path.join(self.currpath, '../files/{0}_draw.png'.format(toolkit))
             if mol:
                 mol.draw(filename=outfile, show=False)
                 self.tmp_files.append(outfile)
-
                 self.assertTrue(os.path.isfile(outfile))

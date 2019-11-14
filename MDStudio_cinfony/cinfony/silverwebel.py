@@ -308,6 +308,7 @@ class Molecule(object):
         url = "http://cactus.nci.nih.gov/chemical/structure/%s/image" % _quo(self.smiles)
         showimage(url)
 
+
 class Fingerprint(object):
     """A Molecular Fingerprint.
     
