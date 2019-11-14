@@ -34,22 +34,23 @@ try:
 except ImportError:
     tk = None
 
+# A dictionary of supported input formats
 informats = {"smi":"SMILES", "inchikey":"InChIKey", "inchi":"InChI",
              "name":"Common name"}
-"""A dictionary of supported input formats"""
-outformats = {"smi":"SMILES", "cdxml":"ChemDraw XML", "inchi":"InChI",
-              "sdf":"Symyx SDF", "names":"Common names", "inchikey":"InChIKey",
-              "alc":"Alchemy", "cerius":"MSI Cerius II", "charmm":"CHARMM",
-              "cif":"Crystallographic Information File",
-              "cml":"Chemical Markup Language", "ctx":"Gasteiger Clear Text",
-              "gjf":"Gaussian job file", "gromacs":"GROMACS",
-              "hyperchem":"HyperChem", "jme":"Java Molecule Editor",
+
+# A dictionary of supported output formats
+outformats = {"smi": "SMILES", "cdxml": "ChemDraw XML", "inchi": "InChI",
+              "sdf": "Symyx SDF", "names": "Common names", "inchikey": "InChIKey",
+              "alc": "Alchemy", "cerius": "MSI Cerius II", "charmm": "CHARMM",
+              "cif": "Crystallographic Information File",
+              "cml": "Chemical Markup Language", "ctx": "Gasteiger Clear Text",
+              "gjf": "Gaussian job file", "gromacs": "GROMACS",
+              "hyperchem":"HyperChem", "jme": "Java Molecule Editor",
               "maestro":"Schrodinger MacroModel",
-              "mol":"Symyx mol", "mol2":"Tripos Sybyl MOL2",
-              "mrv":"ChemAxon MRV", "pdb":"Protein Data Bank",
-              "sdf3000":"Symyx SDF3000", "sln":"Sybl line notation",
-              "xyz":"XYZ", "iupac":"IUPAC name"}
-"""A dictionary of supported output formats"""
+              "mol": "Symyx mol", "mol2": "Tripos Sybyl MOL2",
+              "mrv": "ChemAxon MRV", "pdb": "Protein Data Bank",
+              "sdf3000": "Symyx SDF3000", "sln": "Sybl line notation",
+              "xyz": "XYZ", "iupac": "IUPAC name"}
 
 fps = ["std", "maccs", "estate"]
 """A list of supported fingerprint types"""
@@ -155,7 +156,7 @@ class Outputfile(object):
         self.filename = filename
         if not overwrite and os.path.isfile(self.filename):
             raise IOError("%s already exists. Use 'overwrite=True' to overwrite it." % self.filename)
-        if not format in outformats:
+        if format not in outformats:
             raise ValueError("%s is not a recognised Webel format" % format)
         self.file = open(filename, "w")
     
@@ -206,9 +207,13 @@ class Molecule(object):
         self.title = ""
  
     @property
-    def formula(self): return rajweb("mf", _quo(self.smiles))
+    def formula(self):
+        return rajweb("mf", _quo(self.smiles))
+
     @property
-    def molwt(self): return float(rajweb("mw", _quo(self.smiles)))
+    def molwt(self):
+        return float(rajweb("mw", _quo(self.smiles)))
+
     @property
     def _exchange(self):
         return (0, self.smiles)
@@ -351,13 +356,16 @@ class Fingerprint(object):
     """
     def __init__(self, fingerprint):
         self.fp = fingerprint
+
     def __or__(self, other):
         mybits = set(self.bits)
         otherbits = set(other.bits)
         return len(mybits&otherbits) / float(len(mybits|otherbits))
+
     @property
     def bits(self):
         return [i for i,x in enumerate(self.fp) if x=="1"]
+
     def __str__(self):
         return self.fp
 
@@ -380,6 +388,7 @@ class Smarts(object):
     def __init__(self, smartspattern):
         """Initialise with a SMARTS pattern."""
         self.pat = smartspattern
+
     def match(self, molecule):
         """Does a SMARTS pattern match a particular molecule?
         

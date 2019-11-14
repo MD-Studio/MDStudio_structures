@@ -46,10 +46,11 @@ try:
 except ImportError:
     aggdraw = None
 
+# A list of supported fingerprint types
 fps = ['rdkit', 'layered', 'maccs', 'atompairs', 'torsions', 'morgan']
-"""A list of supported fingerprint types"""
+
+# A list of supported descriptors
 descs = _descDict.keys()
-"""A list of supported descriptors"""
 
 _formats = {'smi': "SMILES",
             'can': "Canonical SMILES",
@@ -64,14 +65,16 @@ if not Chem.INCHI_AVAILABLE:
     _notinformats += ['inchi']
     _notoutformats += ['inchi', 'inchikey']
 
+# A dictionary of supported input formats
 informats = dict([(_x, _formats[_x]) for _x in _formats if _x not in _notinformats])
-"""A dictionary of supported input formats"""
-outformats = dict([(_x, _formats[_x]) for _x in _formats if _x not in _notoutformats])
-"""A dictionary of supported output formats"""
 
+# A dictionary of supported output formats
+outformats = dict([(_x, _formats[_x]) for _x in _formats if _x not in _notoutformats])
+
+# A list of supported forcefields
 _forcefields = {'uff': AllChem.UFFOptimizeMolecule}
 forcefields = _forcefields.keys()
-"""A list of supported forcefields"""
+
 
 def readfile(format, filename):
     """Iterate over the molecules in a file.
@@ -133,6 +136,7 @@ def readfile(format, filename):
     else:
         raise ValueError("%s is not a recognised RDKit format" % format)
 
+
 def readstring(format, string):
     """Read in a molecule from a string.
 
@@ -162,6 +166,7 @@ def readstring(format, string):
         return Molecule(mol)
     else:
         raise IOError("Failed to convert '%s' to format '%s'" % (string, format))
+
 
 class Outputfile(object):
     """Represent a file to which *output* is to be sent.
@@ -214,6 +219,7 @@ class Outputfile(object):
         self._writer.flush()
         del self._writer
 
+
 class Molecule(object):
     """Represent an rdkit Molecule.
 
@@ -244,21 +250,32 @@ class Molecule(object):
         self.Mol = Mol
 
     @property
-    def atoms(self): return [Atom(rdkatom) for rdkatom in self.Mol.GetAtoms()]
+    def atoms(self):
+        return [Atom(rdkatom) for rdkatom in self.Mol.GetAtoms()]
+
     @property
-    def data(self): return MoleculeData(self.Mol)
+    def data(self):
+        return MoleculeData(self.Mol)
+
     @property
-    def molwt(self): return Descriptors.MolWt(self.Mol)
+    def molwt(self):
+        return Descriptors.MolWt(self.Mol)
+
     @property
-    def formula(self): return Descriptors.MolecularFormula(self.Mol)
+    def formula(self):
+        return Descriptors.MolecularFormula(self.Mol)
+
     def _gettitle(self):
         # Note to self: maybe should implement the get() method for self.data
         if "_Name" in self.data:
             return self.data["_Name"]
         else:
             return ""
-    def _settitle(self, val): self.Mol.SetProp("_Name", val)
+
+    def _settitle(self, val):
+        self.Mol.SetProp("_Name", val)
     title = property(_gettitle, _settitle)
+
     @property
     def _exchange(self):
         if self.Mol.GetNumConformers() == 0:
@@ -457,6 +474,7 @@ class Molecule(object):
                 raise Exception("Embedding failed!")
         self.localopt(forcefield, steps)
 
+
 class Atom(object):
     """Represent an rdkit Atom.
 
@@ -472,8 +490,11 @@ class Atom(object):
 
     def __init__(self, Atom):
         self.Atom = Atom
+
     @property
-    def atomicnum(self): return self.Atom.GetAtomicNum()
+    def atomicnum(self):
+        return self.Atom.GetAtomicNum()
+
     @property
     def coords(self):
         owningmol = self.Atom.GetOwningMol()
@@ -482,8 +503,10 @@ class Atom(object):
         idx = self.Atom.GetIdx()
         atomcoords = owningmol.GetConformer().GetAtomPosition(idx)
         return (atomcoords[0], atomcoords[1], atomcoords[2])
+
     @property
-    def formalcharge(self): return self.Atom.GetFormalCharge()
+    def formalcharge(self):
+        return self.Atom.GetFormalCharge()
 
     def __str__(self):
         if hasattr(self, "coords"):
@@ -491,6 +514,7 @@ class Atom(object):
                                                     self.coords[1], self.coords[2])
         else:
             return "Atom: %d (no coords)" % (self.atomicnum)
+
 
 class Smarts(object):
     """A Smarts Pattern Matcher
@@ -525,6 +549,7 @@ class Smarts(object):
         """
         return molecule.Mol.GetSubstructMatches(self.rdksmarts)
 
+
 class MoleculeData(object):
     """Store molecule data in a dictionary-type object
 
@@ -554,41 +579,57 @@ class MoleculeData(object):
     """
     def __init__(self, Mol):
         self._mol = Mol
+
     def _testforkey(self, key):
         if not key in self:
             raise KeyError("'%s'" % key)
+
     def keys(self):
         return self._mol.GetPropNames()
+
     def values(self):
         return [self._mol.GetProp(x) for x in self.keys()]
+
     def items(self):
         return zip(self.keys(), self.values())
+
     def __iter__(self):
         return iter(self.keys())
+
     def iteritems(self):
         return iter(self.items())
+
     def __len__(self):
         return len(self.keys())
+
     def __contains__(self, key):
         return self._mol.HasProp(key)
+
     def __delitem__(self, key):
         self._testforkey(key)
         self._mol.ClearProp(key)
+
     def clear(self):
         for key in self:
             del self[key]
+
     def has_key(self, key):
         return key in self
+
     def update(self, dictionary):
         for k, v in dictionary.iteritems():
             self[k] = v
+
     def __getitem__(self, key):
         self._testforkey(key)
         return self._mol.GetProp(key)
+
     def __setitem__(self, key, value):
         self._mol.SetProp(key, str(value))
+
     def __repr__(self):
         return dict(self.iteritems()).__repr__()
+
 
 class Fingerprint(object):
     """A Molecular Fingerprint.
@@ -607,16 +648,20 @@ class Fingerprint(object):
     """
     def __init__(self, fingerprint):
         self.fp = fingerprint
+
     def __or__(self, other):
         return rdkit.DataStructs.FingerprintSimilarity(self.fp, other.fp)
+
     def __getattr__(self, attr):
         if attr == "bits":
             # Create a bits attribute on-the-fly
             return list(self.fp.GetOnBits())
         else:
             raise AttributeError("Fingerprint has no attribute %s" % attr)
+
     def __str__(self):
         return ", ".join([str(x) for x in _compressbits(self.fp)])
+
 
 def _compressbits(bitvector, wordsize=32):
     """Compress binary vector into vector of long ints.

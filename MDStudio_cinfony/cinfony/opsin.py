@@ -41,6 +41,7 @@ outformats = {'cml': "Chemical Markup Language", 'inchi': "InChI",
               'smi': "SMILES"}
 """A dictionary of supported output formats"""
 
+
 def readstring(format, string):
     """Read in a molecule from a string.
 
@@ -86,9 +87,11 @@ class Molecule(object):
         
     def __str__(self):
         return self.write()
+
     @property
     def _exchange(self):
         return (0, self.write("smi"))
+
     def write(self, format="smi", filename=None, overwrite=False):
         """Write the molecule to a file or return a string.
         
@@ -120,6 +123,7 @@ class Molecule(object):
                 outputfile.write(result)
         else:
             return result
+
 
 if __name__=="__main__": #pragma: no cover
     mol = readstring("iupac", "propane")

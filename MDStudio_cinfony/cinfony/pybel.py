@@ -97,6 +97,7 @@ operations = _getpluginnames("ops")
 """A list of supported operations"""
 _operations = _getplugins(ob.OBOp.FindType, operations)
 
+
 def readfile(format, filename, opt=None):
     """Iterate over the molecules in a file.
 
@@ -140,6 +141,7 @@ def readfile(format, filename, opt=None):
         raise ValueError("%s is not a recognised Open Babel format" % format)
     if not os.path.isfile(filename):
         raise IOError("No such file: '%s'" % filename)
+
     def filereader():
         obmol = ob.OBMol()
         notatend = obconversion.ReadFile(obmol,filename)
@@ -148,6 +150,7 @@ def readfile(format, filename, opt=None):
             obmol = ob.OBMol()
             notatend = obconversion.Read(obmol)
     return filereader()
+
 
 def readstring(format, string, opt=None):
     """Read in a molecule from a string.
@@ -188,6 +191,7 @@ def readstring(format, string, opt=None):
         raise IOError("Failed to convert '%s' to format '%s'" % (
             string, format))
     return Molecule(obmol)
+
 
 class Outputfile(object):
     """Represent a file to which *output* is to be sent.
@@ -253,6 +257,7 @@ class Outputfile(object):
         self.obConversion.CloseOutFile()
         self.filename = None
 
+
 class Molecule(object):
     """Represent a Pybel Molecule.
 
@@ -288,29 +293,54 @@ class Molecule(object):
     @property
     def atoms(self):
         return [ Atom(self.OBMol.GetAtom(i+1)) for i in range(self.OBMol.NumAtoms()) ]
+
     @property
-    def charge(self): return self.OBMol.GetTotalCharge()
+    def charge(self):
+        return self.OBMol.GetTotalCharge()
+
     @property
-    def conformers(self): return self.OBMol.GetConformers()
+    def conformers(self):
+        return self.OBMol.GetConformers()
+
     @property
-    def data(self): return MoleculeData(self.OBMol)
+    def data(self):
+        return MoleculeData(self.OBMol)
+
     @property
-    def dim(self): return self.OBMol.GetDimension()
+    def dim(self):
+        return self.OBMol.GetDimension()
+
     @property
-    def energy(self): return self.OBMol.GetEnergy()
+    def energy(self):
+        return self.OBMol.GetEnergy()
+
     @property
-    def exactmass(self): return self.OBMol.GetExactMass()
+    def exactmass(self):
+        return self.OBMol.GetExactMass()
+
     @property
-    def formula(self): return self.OBMol.GetFormula()
+    def formula(self):
+        return self.OBMol.GetFormula()
+
     @property
-    def molwt(self): return self.OBMol.GetMolWt()
+    def molwt(self):
+        return self.OBMol.GetMolWt()
+
     @property
-    def spin(self): return self.OBMol.GetTotalSpinMultiplicity()
+    def spin(self):
+        return self.OBMol.GetTotalSpinMultiplicity()
+
     @property
-    def sssr(self): return self.OBMol.GetSSSR()
-    def _gettitle(self): return self.OBMol.GetTitle()
-    def _settitle(self, val): self.OBMol.SetTitle(val)
+    def sssr(self):
+        return self.OBMol.GetSSSR()
+
+    def _gettitle(self):
+        return self.OBMol.GetTitle()
+
+    def _settitle(self, val):
+        self.OBMol.SetTitle(val)
     title = property(_gettitle, _settitle)
+
     @property
     def unitcell(self):
         unitcell_index = _obconsts.UnitCell
@@ -324,6 +354,7 @@ class Molecule(object):
                 return unitcell.Downcast[ob.OBUnitCell]()
         else:
             raise AttributeError("Molecule has no attribute 'unitcell'")
+
     @property
     def _exchange(self):
         if self.OBMol.HasNonZeroCoords():
@@ -565,6 +596,7 @@ class Molecule(object):
             os.close(filedes)
             os.remove(filename)
 
+
 class Atom(object):
     """Represent a Pybel atom.
 
@@ -589,44 +621,79 @@ class Atom(object):
     @property
     def coords(self):
         return (self.OBAtom.GetX(), self.OBAtom.GetY(), self.OBAtom.GetZ())
+
     @property
-    def atomicmass(self): return self.OBAtom.GetAtomicMass()
+    def atomicmass(self):
+        return self.OBAtom.GetAtomicMass()
+
     @property
-    def atomicnum(self): return self.OBAtom.GetAtomicNum()
+    def atomicnum(self):
+        return self.OBAtom.GetAtomicNum()
+
     @property
-    def cidx(self): return self.OBAtom.GetCIdx()
+    def cidx(self):
+        return self.OBAtom.GetCIdx()
+
     @property
-    def coordidx(self): return self.OBAtom.GetCoordinateIdx()
+    def coordidx(self):
+        return self.OBAtom.GetCoordinateIdx()
+
     @property
-    def exactmass(self): return self.OBAtom.GetExactMass()
+    def exactmass(self):
+        return self.OBAtom.GetExactMass()
+
     @property
-    def formalcharge(self): return self.OBAtom.GetFormalCharge()
+    def formalcharge(self):
+        return self.OBAtom.GetFormalCharge()
+
     @property
-    def heavyvalence(self): return self.OBAtom.GetHvyValence()
+    def heavyvalence(self):
+        return self.OBAtom.GetHvyValence()
+
     @property
-    def heterovalence(self): return self.OBAtom.GetHeteroValence()
+    def heterovalence(self):
+        return self.OBAtom.GetHeteroValence()
+
     @property
-    def hyb(self): return self.OBAtom.GetHyb()
+    def hyb(self):
+        return self.OBAtom.GetHyb()
+
     @property
-    def idx(self): return self.OBAtom.GetIdx()
+    def idx(self):
+        return self.OBAtom.GetIdx()
+
     @property
-    def implicitvalence(self): return self.OBAtom.GetImplicitValence()
+    def implicitvalence(self):
+        return self.OBAtom.GetImplicitValence()
+
     @property
-    def isotope(self): return self.OBAtom.GetIsotope()
+    def isotope(self):
+        return self.OBAtom.GetIsotope()
+
     @property
-    def partialcharge(self): return self.OBAtom.GetPartialCharge()
+    def partialcharge(self):
+        return self.OBAtom.GetPartialCharge()
+
     @property
-    def spin(self): return self.OBAtom.GetSpinMultiplicity()
+    def spin(self):
+        return self.OBAtom.GetSpinMultiplicity()
+
     @property
-    def type(self): return self.OBAtom.GetType()
+    def type(self):
+        return self.OBAtom.GetType()
+
     @property
-    def valence(self): return self.OBAtom.GetValence()
+    def valence(self):
+        return self.OBAtom.GetValence()
+
     @property
-    def vector(self): return self.OBAtom.GetVector()
+    def vector(self):
+        return self.OBAtom.GetVector()
 
     def __str__(self):
         c = self.coords
         return "Atom: %d (%.2f %.2f %.2f)" % (self.atomicnum, c[0], c[1], c[2])
+
 
 def _findbits(fp, bitsperint):
     """Find which bits are set in a list/vector.
@@ -650,6 +717,7 @@ def _findbits(fp, bitsperint):
         start += bitsperint
     return ans
 
+
 class Fingerprint(object):
     """A Molecular Fingerprint.
 
@@ -667,16 +735,20 @@ class Fingerprint(object):
     """
     def __init__(self, fingerprint):
         self.fp = fingerprint
+
     def __or__(self, other):
         return ob.OBFingerprint.Tanimoto(self.fp, other.fp)
+
     @property
     def bits(self):
         return _findbits(self.fp, ob.OBFingerprint.Getbitsperint())
+
     def __str__(self):
         fp = self.fp
         if sys.platform[:4] == "java":
             fp = [self.fp.get(i) for i in range(self.fp.size())]
         return ", ".join([str(x) for x in fp])
+
 
 class Smarts(object):
     """A Smarts Pattern Matcher
@@ -703,6 +775,7 @@ class Smarts(object):
         success = self.obsmarts.Init(smartspattern)
         if not success:
             raise IOError("Invalid SMARTS pattern")
+
     def findall(self,molecule):
         """Find all matches of the SMARTS pattern to a particular molecule.
 
@@ -714,6 +787,7 @@ class Smarts(object):
         if sys.platform[:4] == "java":
             vector = [vector.get(i) for i in range(vector.size())]
         return list(vector)
+
 
 class MoleculeData(object):
     """Store molecule data in a dictionary-type object
@@ -745,6 +819,7 @@ class MoleculeData(object):
     """
     def __init__(self, obmol):
         self._mol = obmol
+
     def _data(self):
         data = self._mol.GetData()
         if sys.platform[:4] == "java":
@@ -755,40 +830,54 @@ class MoleculeData(object):
         if sys.platform[:3] != "cli":
             answer = [_obfuncs.toPairData(x) for x in answer]
         return answer
+
     def _testforkey(self, key):
         if not key in self:
             raise KeyError("'%s'" % key)
+
     def keys(self):
         return [x.GetAttribute() for x in self._data()]
+
     def values(self):
         return [x.GetValue() for x in self._data()]
+
     def items(self):
         return iter(zip(self.keys(), self.values()))
+
     def __iter__(self):
         return iter(self.keys())
+
     def iteritems(self): # Can remove for Python 3
         return self.items()
+
     def __len__(self):
         return len(self._data())
+
     def __contains__(self, key):
         return self._mol.HasData(key)
+
     def __delitem__(self, key):
         self._testforkey(key)
         self._mol.DeleteData(self._mol.GetData(key))
+
     def clear(self):
         for key in self:
             del self[key]
+
     def has_key(self, key):
         return key in self
+
     def update(self, dictionary):
         for k, v in dictionary.items():
             self[k] = v
+
     def __getitem__(self, key):
         self._testforkey(key)
         answer = self._mol.GetData(key)
         if sys.platform[:3] != "cli":
             answer = _obfuncs.toPairData(answer)
         return answer.GetValue()
+
     def __setitem__(self, key, value):
         if key in self:
             if sys.platform[:3] != "cli":
@@ -801,10 +890,13 @@ class MoleculeData(object):
             pairdata.SetAttribute(key)
             pairdata.SetValue(str(value))
             self._mol.CloneData(pairdata)
+
     def __repr__(self):
         return dict(self.items()).__repr__()
 
+
 if sys.platform[:3] == "cli":
+
     class _MyForm(Form):
         def __init__(self):
             Form.__init__(self)
@@ -825,6 +917,7 @@ if sys.platform[:3] == "cli":
              
             self.Controls.Add(pictureBox)
             self.Show()
+
 
 if __name__=="__main__": #pragma: no cover
     import doctest

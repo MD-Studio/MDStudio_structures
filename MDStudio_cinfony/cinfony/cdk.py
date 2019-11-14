@@ -104,12 +104,14 @@ _bondtypes = {1: cdk.CDKConstants.BONDORDER_SINGLE,
               3: cdk.CDKConstants.BONDORDER_TRIPLE}
 _revbondtypes = dict([(_y,_x) for (_x,_y) in _bondtypes.iteritems()])
 
+
 def _intvalue(integer):
     """Paper over some differences between JPype and Jython"""
     # Jython automagically converts Integer to ints
     if type(integer) != type(42): # Is it a Python int?
         integer = integer.intValue()
     return integer
+
 
 def readfile(format, filename):
     """Iterate over the molecules in a file.
@@ -160,6 +162,7 @@ def readfile(format, filename):
     else:
         raise ValueError("%s is not a recognised CDK format" % format)
 
+
 def readstring(format, string):
     """Read in a molecule from a string.
 
@@ -196,6 +199,7 @@ def readstring(format, string):
         return Molecule(manip.getAllAtomContainers(chemfile)[0])
     else:
         raise ValueError("%s is not a recognised CDK format" % format)
+
 
 class Outputfile(object):
     """Represent a file to which *output* is to be sent.
@@ -250,6 +254,7 @@ class Outputfile(object):
             self._molwriter.close()
             self._writer.close()
 
+
 class Molecule(object):
     """Represent a cdkjpype Molecule.
 
@@ -281,14 +286,19 @@ class Molecule(object):
         _aromaticityperceptor.apply(self.Molecule)
 
     @property
-    def atoms(self): return [Atom(self.Molecule.getAtom(i)) for i in range(self.Molecule.getAtomCount())]
+    def atoms(self):
+        return [Atom(self.Molecule.getAtom(i)) for i in range(self.Molecule.getAtomCount())]
+
     @property
-    def data(self): return MoleculeData(self.Molecule)
+    def data(self):
+        return MoleculeData(self.Molecule)
+
     @property
     def formula(self):
         manip = cdk.tools.manipulator.MolecularFormulaManipulator
         mf = manip.getMolecularFormula(self.Molecule)
         return manip.getString(mf) # GetHillString
+
     @property
     def exactmass(self):
         clone = Molecule(self.Molecule.clone())
@@ -296,15 +306,21 @@ class Molecule(object):
         manip = cdk.tools.manipulator.MolecularFormulaManipulator
         mf = manip.getMolecularFormula(clone.Molecule)
         return manip.getMajorIsotopeMass(mf)
+
     @property
     def molwt(self):
         clone = Molecule(self.Molecule.clone())
         clone.addh()
         atommanip = cdk.tools.manipulator.AtomContainerManipulator
         return atommanip.getNaturalExactMass(clone.Molecule)
-    def _gettitle(self): return self.Molecule.getProperty(cdk.CDKConstants.TITLE)
-    def _settitle(self, val): self.Molecule.setProperty(cdk.CDKConstants.TITLE, val)
+
+    def _gettitle(self):
+        return self.Molecule.getProperty(cdk.CDKConstants.TITLE)
+
+    def _settitle(self, val):
+        self.Molecule.setProperty(cdk.CDKConstants.TITLE, val)
     title = property(_gettitle, _settitle)
+
     @property
     def _exchange(self):
         gt = cdk.geometry.GeometryTools
@@ -496,6 +512,7 @@ class Molecule(object):
         else:
             canvas.frame.dispose()
 
+
 if sys.platform[:4] == "java":
     class _Canvas(javax.swing.JPanel):
         """
@@ -539,6 +556,7 @@ if sys.platform[:4] == "java":
             self.paint(g2)
             javax.imageio.ImageIO.write(img, "png", java.io.File(filename))
 
+
 class Fingerprint(object):
     """A Molecular Fingerprint.
 
@@ -556,8 +574,10 @@ class Fingerprint(object):
     """
     def __init__(self, fingerprint):
         self.fp = fingerprint
+
     def __or__(self, other):
         return cdk.similarity.Tanimoto.calculate(self.fp, other.fp)
+
     def __getattr__(self, attr):
         if attr == "bits":
             # Create a bits attribute on-the-fly
@@ -569,8 +589,10 @@ class Fingerprint(object):
             return bits
         else:
             raise AttributeError("Fingerprint has no attribute %s" % attr)
+
     def __str__(self):
         return self.fp.toString()
+
 
 class Atom(object):
     """Represent a cdkjpype Atom.
@@ -592,6 +614,7 @@ class Atom(object):
     def atomicnum(self):
         _isofact.configure(self.Atom)
         return _intvalue(self.Atom.getAtomicNumber())
+
     @property
     def coords(self):
         coords = self.Atom.point3d
@@ -601,6 +624,7 @@ class Atom(object):
                 return (0., 0., 0.)
         else:
             return (coords.x, coords.y, coords.z)
+
     @property
     def formalcharge(self):
         _isofact.configure(self.Atom)
@@ -609,6 +633,7 @@ class Atom(object):
     def __str__(self):
         c = self.coords
         return "Atom: %d (%.2f %.2f %.2f)" % (self.atomicnum, c[0], c[1], c[2])
+
 
 class Smarts(object):
     """A Smarts Pattern Matcher
@@ -637,6 +662,7 @@ class Smarts(object):
         """
         match = self.smarts.matches(molecule.Molecule)
         return list(self.smarts.getUniqueMatchingAtoms())
+
 
 class MoleculeData(object):
     """Store molecule data in a dictionary-type object
@@ -667,43 +693,60 @@ class MoleculeData(object):
     """
     def __init__(self, Molecule):
         self._mol = Molecule
+
     def _data(self):
         return self._mol.getProperties()
+
     def _testforkey(self, key):
         if not key in self:
             raise KeyError("'%s'" % key)
+
     def keys(self):
         return list(self._data().keySet())
+
     def values(self):
         return list(self._data().values())
+
     def items(self):
         return [(k, self[k]) for k in self._data().keySet()]
+
     def __iter__(self):
         return iter(self.keys())
+
     def iteritems(self):
         return iter(self.items())
+
     def __len__(self):
         return len(self._data())
+
     def __contains__(self, key):
         return key in self._data()
+
     def __delitem__(self, key):
         self._testforkey(key)
         self._mol.removeProperty(key)
+
     def clear(self):
         for key in self:
             del self[key]
+
     def has_key(self, key):
         return key in self
+
     def update(self, dictionary):
         for k, v in dictionary.iteritems():
             self[k] = v
+
     def __getitem__(self, key):
         self._testforkey(key)
         return self._mol.getProperty(key)
+
     def __setitem__(self, key, value):
         self._mol.setProperty(key, str(value))
+
     def __repr__(self):
         return dict(self.iteritems()).__repr__()
+
 
 if __name__=="__main__": #pragma: no cover
     mol = readstring("smi", "CC(=O)Cl")

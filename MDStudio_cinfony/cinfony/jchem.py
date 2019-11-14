@@ -17,6 +17,7 @@ Global variables:
   fps - a list of supported fingerprint types
   forcefields - a list of supported forcefields
 """
+
 import sys
 import os
 from glob import glob
@@ -67,6 +68,7 @@ fps = ['ecfp']
 forcefields = ["mmff94"]
 """A list of supported forcefields"""
 
+# A dictionary of supported input formats
 informats = {
     'smi': "SMILES"
     ,'cxsmi': "ChemAxon exntended SMILES"
@@ -86,8 +88,9 @@ informats = {
     , 'cube':'Gaussian cube'
     , 'gout':'Gaussian output format'
     }
-"""A dictionary of supported input formats"""
 
+
+# A dictionary of supported output formats
 outformats = {
     'smi': "SMILES"
     ,'cxsmi': "ChemAxon exntended SMILES"
@@ -108,7 +111,7 @@ outformats = {
     , 'cube':'Gaussian cube'
     , 'gjf':'Gaussian input format'
     }
-"""A dictionary of supported output formats"""
+
 
 def readfile(format, filename):
     """Iterate over the molecules in a file.
@@ -148,6 +151,7 @@ def readfile(format, filename):
     except chemaxon.formats.MolFormatException:
         raise ValueError("%s is not a recognised JChem format" % format)
 
+
 def readstring(format, string):
     """Read in a molecule from a string.
 
@@ -175,6 +179,7 @@ def readstring(format, string):
             raise IOError(ex)
         else:
             raise IOError("Problem reading the supplied string")
+
 
 class Outputfile(object):
     """Represent a file to which *output* is to be sent.
@@ -229,6 +234,7 @@ class Outputfile(object):
         self.filename = None
         self._writer.close()
 
+
 class Molecule(object):
     """Represent a JChem Molecule.
 
@@ -263,20 +269,32 @@ class Molecule(object):
         self.MolHandler.aromatize()
 
     @property
-    def atoms(self): return [Atom(atom) for atom in self.Molecule.atomArray]
+    def atoms(self):
+        return [Atom(atom) for atom in self.Molecule.atomArray]
+
     @property
-    def data(self): return MoleculeData(self)
+    def data(self):
+        return MoleculeData(self)
+
     @property
-    def formula(self): return self.MolHandler.calcMolFormula()
+    def formula(self):
+        return self.MolHandler.calcMolFormula()
+
     @property
     def exactmass(self):
         return self.MolHandler.calcMolWeightInDouble()
+
     @property
     def molwt(self):
         return self.MolHandler.calcMolWeight()
-    def _gettitle(self): return self.Molecule.getName()
-    def _settitle(self, val): self.Molecule.setName(val)
+
+    def _gettitle(self):
+        return self.Molecule.getName()
+
+    def _settitle(self, val):
+        self.Molecule.setName(val)
     title = property(_gettitle, _settitle)
+
     @property
     def _exchange(self):
         if self.Molecule.dim > 1:
@@ -464,8 +482,10 @@ class Fingerprint(object):
     """
     def __init__(self, fingerprint):
         self.fp = fingerprint
+
     def __or__(self, other):
         return 1 - self.fp.getTanimoto(other.fp)
+
     def __getattr__(self, attr):
         if attr == "bits":
             # Create a bits attribute on-the-fly
@@ -499,7 +519,9 @@ class Atom(object):
         self.Atom = Atom
 
     @property
-    def atomicnum(self): return self.Atom.getAtno()
+    def atomicnum(self):
+        return self.Atom.getAtno()
+
     @property
     def coords(self):
             return (self.Atom.x, self.Atom.y, self.Atom.z)
@@ -576,39 +598,54 @@ class MoleculeData(object):
     """
     def __init__(self, Molecule):
         self._data = Molecule.Molecule.properties()
+
     def _testforkey(self, key):
-        if not key in self:
+        if key not in self:
             raise KeyError("'%s'" % key)
+
     def keys(self):
         return list(self._data.keys)
+
     def values(self):
         return [self[k] for k in self._data.keys]
+
     def items(self):
         return [(k, self[k]) for k in self._data.keys]
+
     def __iter__(self):
         return iter(self.keys())
+
     def iteritems(self):
         return iter(self.items())
+
     def __len__(self):
         return len(self._data.keys)
+
     def __contains__(self, key):
         return key in self.keys()
+
     def __delitem__(self, key):
         self._testforkey(key)
         self._data.setString(key, None)
+
     def clear(self):
         for key in self:
             del self[key]
+
     def has_key(self, key):
         return key in self
+
     def update(self, dictionary):
         for k, v in dictionary.iteritems():
             self[k] = v
+
     def __getitem__(self, key):
         self._testforkey(key)
         return self._data.get(key).propValue
+
     def __setitem__(self, key, value):
         self._data.setString(key, str(value))
+
     def __repr__(self):
         return dict(self.iteritems()).__repr__()
 
@@ -651,6 +688,7 @@ ECFPConfiguration = """<?xml version="1.0" encoding="UTF-8"?>
 
 </ECFPConfiguration>
 """
+
 
 if __name__=="__main__": #pragma: no cover
     mol = readstring("smi", "CC(=O)Cl")

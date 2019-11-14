@@ -68,6 +68,7 @@ outformats = dict([(_x, _formats[_x]) for _x in ['mol', 'sdf', 'smi', 'can',
                                                  'cml', 'inchi', 'inchikey']])
 """A dictionary of supported output formats"""
 
+
 def readfile(format, filename):
     """Iterate over the molecules in a file.
 
@@ -129,6 +130,7 @@ def readfile(format, filename):
 
     else:
         raise ValueError("%s is not a recognised Indigo format" % format)
+
 
 def readstring(format, string):
     """Read in a molecule from a string.
@@ -217,6 +219,7 @@ class Outputfile(object):
         self.filename = None
         del self._writer
 
+
 class Molecule(object):
     """Represent an Indigo Molecule.
 
@@ -247,17 +250,27 @@ class Molecule(object):
         self.Mol = Mol
 
     @property
-    def atoms(self): return [Atom(atom) for atom in self.Mol.iterateAtoms()]
+    def atoms(self):
+        return [Atom(atom) for atom in self.Mol.iterateAtoms()]
+
     @property
-    def data(self): return MoleculeData(self.Mol)
+    def data(self):
+        return MoleculeData(self.Mol)
+
     @property
-    def formula(self): return self.Mol.grossFormula()
+    def formula(self):
+        return self.Mol.grossFormula()
+
     @property
-    def molwt(self): return self.Mol.molecularWeight()
+    def molwt(self):
+        return self.Mol.molecularWeight()
+
     def _gettitle(self):
         return self.Mol.name()
+
     def _settitle(self, val): self.Mol.setName(val)
     title = property(_gettitle, _settitle)
+
     @property
     def _exchange(self):
         if not self.Mol.hasZCoord():
@@ -453,6 +466,7 @@ class Molecule(object):
                 os.close(filedes)
                 os.remove(filename)
 
+
 class Atom(object):
     """Represent an Indigo Atom.
 
@@ -468,13 +482,18 @@ class Atom(object):
 
     def __init__(self, Atom):
         self.Atom = Atom
+
     @property
-    def atomicnum(self): return self.Atom.atomicNumber()
+    def atomicnum(self):
+        return self.Atom.atomicNumber()
+
     @property
     def coords(self):
         return tuple(self.Atom.xyz())
+
     @property
-    def formalcharge(self): return self.Atom.charge()
+    def formalcharge(self):
+        return self.Atom.charge()
 
     def __str__(self):
         if hasattr(self, "coords"):
@@ -482,6 +501,7 @@ class Atom(object):
                                                     self.coords[1], self.coords[2])
         else:
             return "Atom: %d (no coords)" % (self.atomicnum)
+
 
 class Smarts(object):
     """A Smarts Pattern Matcher
@@ -554,42 +574,58 @@ class MoleculeData(object):
     """
     def __init__(self, Mol):
         self._mol = Mol
+
     def _testforkey(self, key):
         if not self._mol.hasProperty(key):
             raise KeyError("'%s'" % key)
+
     def keys(self):
         return [prop.name() for prop in self._mol.iterateProperties()]
+
     def values(self):
         return [prop.rawData() for prop in self._mol.iterateProperties()]
+
     def items(self):
         return [(prop.name(), prop.rawData())
                 for prop in self._mol.iterateProperties()]
+
     def __iter__(self):
         return iter(self.keys())
+
     def iteritems(self):
         return iter(self.items())
+
     def __len__(self):
         return len(self.keys())
+
     def __contains__(self, key):
         return self._mol.hasProperty(key)
+
     def __delitem__(self, key):
         self._testforkey(key)
         self._mol.removeProperty(key)
+
     def clear(self):
         for key in self:
             del self[key]
+
     def has_key(self, key):
         return key in self
+
     def update(self, dictionary):
         for k, v in dictionary.iteritems():
             self[k] = v
+
     def __getitem__(self, key):
         self._testforkey(key)
         return self._mol.getProperty(key)
+
     def __setitem__(self, key, value):
         self._mol.setProperty(key, str(value))
+
     def __repr__(self):
         return dict(self.iteritems()).__repr__()
+
 
 class Fingerprint(object):
     """A Molecular Fingerprint.
@@ -608,16 +644,21 @@ class Fingerprint(object):
     """
     def __init__(self, fingerprint):
         self.fp = fingerprint
+
     def __or__(self, other):
         return indigo.similarity(self.fp, other.fp, "tanimoto")
+
     def _buffer_to_int(self):
         stringrep = self.fp.toString()
         return [int(stringrep[i:i+1]) for i in range(0, len(stringrep), 1)]
+
     @property
     def bits(self):
         return _findbits(self._buffer_to_int(), 8)
+
     def __str__(self):
         return str(self._buffer_to_int())
+
 
 def _toint(string):
     """
@@ -628,6 +669,7 @@ def _toint(string):
         return int(string)
     else:
         return 0
+
 
 def _findbits(fp, bitsperint):
     """Find which bits are set in a list/vector.
@@ -667,6 +709,7 @@ def _compressbits(bitvector, wordsize=32):
         ans.append(compressed)
 
     return ans
+
 
 if __name__=="__main__": #pragma: no cover
     import doctest

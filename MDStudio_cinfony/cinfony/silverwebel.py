@@ -47,6 +47,7 @@ outformats = {"smi":"SMILES", "cdxml":"ChemDraw XML", "inchi":"InChI",
 fps = ["std", "maccs", "estate"]
 """A list of supported fingerprint types"""
 
+
 # The following function is taken from urllib.py in the IronPython dist
 def _quo(text, safe="/"):
     always_safe = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -65,6 +66,7 @@ def _quo(text, safe="/"):
         _safemaps[cachekey] = safe_map
     res = map(safe_map.__getitem__, text)
     return ''.join(res)
+
 
 def _makeserver(serverurl):
     """Curry the name of the server"""
@@ -88,8 +90,9 @@ def _makeserver(serverurl):
 
 rajweb = _makeserver("rajweb")
 nci = _makeserver("nci")
-
 _descs = None # Cache the list of descriptors
+
+
 def getdescs():
     """Return a list of supported descriptor types"""
     global _descs
@@ -97,6 +100,7 @@ def getdescs():
         response = rajweb("descriptors").rstrip()
         _descs = [x.split(".")[-1] for x in response.split("\n")]
     return _descs
+
 
 def readstring(format, string):
     """Read in a molecule from a string.
@@ -127,6 +131,7 @@ def readstring(format, string):
         if format == "name":
             mol.title = string
         return mol
+
 
 class Outputfile(object):
     """Represent a file to which *output* is to be sent.
@@ -173,6 +178,7 @@ class Outputfile(object):
         """Close the Outputfile to further writing."""
         self.file.close()
 
+
 class Molecule(object):
     """Represent a Webel Molecule.
 
@@ -204,9 +210,13 @@ class Molecule(object):
         self.title = ""
  
     @property
-    def formula(self): return rajweb("mf", _quo(self.smiles))
+    def formula(self):
+        return rajweb("mf", _quo(self.smiles))
+
     @property
-    def molwt(self): return float(rajweb("mw", _quo(self.smiles)))
+    def molwt(self):
+        return float(rajweb("mw", _quo(self.smiles)))
+
     @property
     def _exchange(self):
         return (0, self.smiles)
@@ -326,15 +336,19 @@ class Fingerprint(object):
     """
     def __init__(self, fingerprint):
         self.fp = fingerprint
+
     def __or__(self, other):
         mybits = set(self.bits)
         otherbits = set(other.bits)
         return len(mybits&otherbits) / float(len(mybits|otherbits))
+
     @property
     def bits(self):
         return [i for i,x in enumerate(self.fp) if x=="1"]
+
     def __str__(self):
         return self.fp
+
 
 class Smarts(object):
     """A Smarts Pattern Matcher
@@ -354,6 +368,7 @@ class Smarts(object):
     def __init__(self, smartspattern):
         """Initialise with a SMARTS pattern."""
         self.pat = smartspattern
+
     def match(self, molecule):
         """Does a SMARTS pattern match a particular molecule?
         
@@ -362,7 +377,8 @@ class Smarts(object):
         """
         resp = rajweb("substruct", _quo(molecule.smiles), _quo(self.pat)).rstrip()
         return resp == "true"
- 
+
+
 if __name__=="__main__": #pragma: no cover
     import doctest
     doctest.run_docstring_examples(rajweb, globals())
