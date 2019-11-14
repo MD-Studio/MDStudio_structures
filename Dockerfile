@@ -6,8 +6,9 @@ RUN apt-get update -y && \
     rm -rf /var/lib/apt/lists/*
 
 RUN conda install -c openbabel openbabel && \
+    conda install -c conda-forge pythonnet && \
     conda install -c bioconda java-jdk && \
-    conda install -c conda-forge jpype1 && \
+    conda install -c conda-forge jpype1==0.6.3 && \
     conda install -c speleo3 indigo && \
     conda install -c rdkit rdkit=="2018.03.3.0"
 
