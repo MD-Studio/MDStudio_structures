@@ -15,9 +15,12 @@ Global variables:
 """
 
 import re
+import os
+
 from time import sleep
 
 # .NET classes
+import clr
 from System.Net import WebClient
 from System import Uri, UriKind
 _webclient = WebClient()
@@ -164,7 +167,7 @@ class Outputfile(object):
         if self.file.closed:
             raise IOError("Outputfile instance is closed.")
         output = molecule.write(self.format)
-        print >> self.file, output
+        self.file.write(output)
 
     def close(self):
         """Close the Outputfile to further writing."""
@@ -272,7 +275,7 @@ class Molecule(object):
         elif format == "names":
             try:
                 output = nci(_quo(self.smiles), "%s" % format).rstrip().split("\n")
-            except urllib2.URLError, e:
+            except urllib2.URLError as e:
                 if e.code == 404:
                     output = []
         elif format in ['inchi', 'inchikey']:
@@ -282,7 +285,7 @@ class Molecule(object):
             format = format + "_name"
             try:
                 output = nci(_quo(self.smiles), "%s" % format).rstrip()
-            except urllib2.URLError, e:
+            except urllib2.URLError as e:
                 if e.code == 404:
                     output = ""
         else:
@@ -291,9 +294,8 @@ class Molecule(object):
         if filename:
             if not overwrite and os.path.isfile(filename):
                 raise IOError("%s already exists. Use 'overwrite=True' to overwrite it." % filename)
-            outputfile = open(filename, "w")
-            print >> outputfile, output
-            outputfile.close()
+            with open(filename, "w") as outputfile:
+                outputfile.write(output)
         else:
             return output
 

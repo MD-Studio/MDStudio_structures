@@ -18,8 +18,14 @@ Global variables:
 
 import re
 import os
-import urllib2
-import StringIO
+import sys
+
+if sys.version_info.major == 2:
+    from cStringIO import StringIO
+    import urllib2
+else:
+    from io import StringIO
+    import urllib as urllib2
 
 try:
     import Tkinter as tk
@@ -48,6 +54,7 @@ outformats = {"smi":"SMILES", "cdxml":"ChemDraw XML", "inchi":"InChI",
 fps = ["std", "maccs", "estate"]
 """A list of supported fingerprint types"""
 
+
 # The following function is taken from urllib.py in the IronPython dist
 def _quo(text, safe="/"):
     always_safe = ('ABCDEFGHIJKLMNOPQRSTUVWXYZ'
@@ -67,6 +74,7 @@ def _quo(text, safe="/"):
     res = map(safe_map.__getitem__, text)
     return ''.join(res)
 
+
 def _makeserver(serverurl):
     """Curry the name of the server"""
     def server(*urlcomponents):       
@@ -75,10 +83,12 @@ def _makeserver(serverurl):
         return resp.read()
     return server
 
+
 rajweb = _makeserver("http://ws1.bmc.uu.se:8182/cdk")
 nci = _makeserver("http://cactus.nci.nih.gov/chemical/structure")
-
 _descs = None # Cache the list of descriptors
+
+
 def getdescs():
     """Return a list of supported descriptor types"""
     global _descs
@@ -86,6 +96,7 @@ def getdescs():
         response = rajweb("descriptors").rstrip()
         _descs = [x.split(".")[-1] for x in response.split("\n")]
     return _descs
+
 
 def readstring(format, string):
     """Read in a molecule from a string.
@@ -116,6 +127,7 @@ def readstring(format, string):
         if format == "name":
             mol.title = string
         return mol
+
 
 class Outputfile(object):
     """Represent a file to which *output* is to be sent.
@@ -156,11 +168,12 @@ class Outputfile(object):
         if self.file.closed:
             raise IOError("Outputfile instance is closed.")
         output = molecule.write(self.format)
-        print >> self.file, output
+        self.file.write(output)
 
     def close(self):
         """Close the Outputfile to further writing."""
         self.file.close()
+
 
 class Molecule(object):
     """Represent a Webel Molecule.
@@ -264,7 +277,7 @@ class Molecule(object):
         elif format == "names":
             try:
                 output = nci(_quo(self.smiles), "%s" % format).rstrip().split("\n")
-            except urllib2.URLError, e:
+            except urllib2.URLError as e:
                 if e.code == 404:
                     output = []
         elif format in ['inchi', 'inchikey']:
@@ -274,7 +287,7 @@ class Molecule(object):
             format = format + "_name"
             try:
                 output = nci(_quo(self.smiles), "%s" % format).rstrip()
-            except urllib2.URLError, e:
+            except urllib2.URLError as e:
                 if e.code == 404:
                     output = ""
         else:
@@ -283,9 +296,8 @@ class Molecule(object):
         if filename:
             if not overwrite and os.path.isfile(filename):
                 raise IOError("%s already exists. Use 'overwrite=True' to overwrite it." % filename)
-            outputfile = open(filename, "w")
-            print >> outputfile, output
-            outputfile.close()
+            with open(filename, "w") as outputfile:
+                outputfile.write(output)
         else:
             return output
 
@@ -311,7 +323,7 @@ class Molecule(object):
                                 "Library not found, but is required for image "
                                 "display. See installation instructions for "
                                 "more information.")
-                raise ImportError, errormessage                 
+                raise ImportError(errormessage)
             root = tk.Tk()
             root.title(self.smiles)
             frame = tk.Frame(root, colormap="new", visual='truecolor').pack()
@@ -320,6 +332,7 @@ class Molecule(object):
             label = tk.Label(frame, image=imagedata).pack()
             quitbutton = tk.Button(root, text="Close", command=root.destroy).pack(fill=tk.X)
             root.mainloop()
+
 
 class Fingerprint(object):
     """A Molecular Fingerprint.
@@ -348,6 +361,7 @@ class Fingerprint(object):
     def __str__(self):
         return self.fp
 
+
 class Smarts(object):
     """A Smarts Pattern Matcher
 
@@ -374,7 +388,8 @@ class Smarts(object):
         """
         resp = rajweb("substruct", _quo(molecule.smiles), _quo(self.pat)).rstrip()
         return resp == "true"
- 
+
+
 if __name__=="__main__": #pragma: no cover
     import doctest
     doctest.run_docstring_examples(rajweb, globals())

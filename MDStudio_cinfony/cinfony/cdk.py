@@ -92,7 +92,7 @@ informats = dict([(_x, _formats[_x]) for _x in ['smi', 'sdf', 'mol', 'inchi']])
 _outformats = {'mol': cdk.io.MDLV2000Writer,
                'mol2': cdk.io.Mol2Writer,
                'sdf': cdk.io.SDFWriter}
-outformats = dict([(_x, _formats[_x]) for _x in _outformats.keys() + ['can', 'smi', 'inchi', 'inchikey']])
+outformats = dict([(_x, _formats[_x]) for _x in list(_outformats.keys()) + ['can', 'smi', 'inchi', 'inchikey']])
 """A dictionary of supported output formats"""
 forcefields = list(cdk.modeling.builder3d.ModelBuilder3D.getInstance(_chemobjbuilder).getFfTypes())
 """A list of supported forcefields"""
@@ -132,7 +132,7 @@ def readfile(format, filename):
     >>> for mol in readfile("sdf", "head.sdf"):
     ...     atomtotal += len(mol.atoms)
     ...
-    >>> print atomtotal
+    >>> print(atomtotal)
     43
     """
     format = format.lower()
@@ -318,7 +318,7 @@ class Molecule(object):
 
         This allows constructions such as the following:
            for atom in mymol:
-               print atom
+               print(atom)
         """
         return iter(self.atoms)
 
@@ -366,9 +366,8 @@ class Molecule(object):
             # Set flag or else c1ccccc1 will be written as C1CCCCC1
             smiles = sg.create(self.Molecule)
             if filename:
-                output = open(filename, "w")
-                print >> output, smiles
-                output.close()
+                with open(filename, "w") as output:
+                    output.write(smiles)
                 return
             else:
                 return smiles
@@ -623,7 +622,7 @@ class Smarts(object):
     Example:
     >>> mol = readstring("smi","CCN(CC)CC") # triethylamine
     >>> smarts = Smarts("[#6][#6]") # Matches an ethyl group
-    >>> print smarts.findall(mol)
+    >>> print(smarts.findall(mol))
     [(1, 2), (4, 5), (6, 7)]
     """
     def __init__(self, smartspattern):
@@ -651,19 +650,19 @@ class MoleculeData(object):
     Example:
     >>> mol = readfile("sdf", 'head.sdf').next()
     >>> data = mol.data
-    >>> print data
+    >>> print(data)
     {'Comment': 'CORINA 2.61 0041  25.10.2001', 'NSC': '1'}
-    >>> print len(data), data.keys(), data.has_key("NSC")
+    >>> print(len(data), data.keys(), data.has_key("NSC"))
     2 ['Comment', 'NSC'] True
-    >>> print data['Comment']
+    >>> print(data['Comment'])
     CORINA 2.61 0041  25.10.2001
     >>> data['Comment'] = 'This is a new comment'
     >>> for k,v in data.iteritems():
-    ...    print k, "-->", v
+    ...    print(k, "-->", v)
     Comment --> This is a new comment
     NSC --> 1
     >>> del data['NSC']
-    >>> print len(data), data.keys(), data.has_key("NSC")
+    >>> print(len(data), data.keys(), data.has_key("NSC"))
     1 ['Comment'] False
     """
     def __init__(self, Molecule):

@@ -116,12 +116,11 @@ class Molecule(object):
             result = str(self.OpsinResult.getSmiles())
 
         if filename:
-            outputfile = open(filename, "w")
-            print >> outputfile, result
-            outputfile.close()
+            with open(filename, "w") as outputfile:
+                outputfile.write(result)
         else:
             return result
 
 if __name__=="__main__": #pragma: no cover
     mol = readstring("iupac", "propane")
-    print mol.write("inchi")
+    print(mol.write("inchi"))

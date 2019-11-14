@@ -89,7 +89,7 @@ def readfile(format, filename):
     >>> for mol in readfile("sdf", "head.sdf"):
     ...     atomtotal += len(mol.atoms)
     ...
-    >>> print atomtotal
+    >>> print(atomtotal)
     43
     """
     if not os.path.isfile(filename):
@@ -324,7 +324,7 @@ class Molecule(object):
 
         This allows constructions such as the following:
            for atom in mymol:
-               print atom
+               print(atom)
         """
         return iter(self.atoms)
 
@@ -495,7 +495,7 @@ class Smarts(object):
     Example:
     >>> mol = readstring("smi","CCN(CC)CC") # triethylamine
     >>> smarts = Smarts("[#6][#6]") # Matches an ethyl group
-    >>> print smarts.findall(mol)
+    >>> print(smarts.findall(mol))
     [(0, 1), (3, 4), (5, 6)]
 
     The numbers returned are the indices (starting from 0) of the atoms
@@ -537,19 +537,19 @@ class MoleculeData(object):
     Example:
     >>> mol = readfile("sdf", 'head.sdf').next()
     >>> data = mol.data
-    >>> print data
+    >>> print(data)
     {'Comment': 'CORINA 2.61 0041  25.10.2001', 'NSC': '1'}
-    >>> print len(data), data.keys(), data.has_key("NSC")
+    >>> print(len(data), data.keys(), data.has_key("NSC"))
     2 ['Comment', 'NSC'] True
-    >>> print data['Comment']
+    >>> print(data['Comment'])
     CORINA 2.61 0041  25.10.2001
     >>> data['Comment'] = 'This is a new comment'
     >>> for k,v in data.iteritems():
-    ...    print k, "-->", v
+    ...    print(k, "-->", v)
     Comment --> This is a new comment
     NSC --> 1
     >>> del data['NSC']
-    >>> print len(data), data.keys(), data.has_key("NSC")
+    >>> print(len(data), data.keys(), data.has_key("NSC"))
     1 ['Comment'] False
     """
     def __init__(self, Mol):
