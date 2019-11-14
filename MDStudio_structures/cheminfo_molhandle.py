@@ -72,7 +72,7 @@ def mol_read(mol, mol_format=None, from_file=False, toolkit='pybel', default_mol
 
     try:
         if from_file:
-            molobject = toolkit_driver.readfile(mol_format, mol).next()
+            molobject = toolkit_driver.readfile(mol_format, mol).__next__()
         else:
             molobject = toolkit_driver.readstring(mol_format, mol)
     except IOError as e:
@@ -120,8 +120,7 @@ def mol_attributes(molobject):
 
     attributes = {}
     attributes.update(molobject.data)
-    opts = (
-        'formula', 'molwt', 'title', 'charge', 'dim', 'energy', 'exactmass')
+    opts = ('formula', 'molwt', 'title', 'charge', 'dim', 'energy', 'exactmass')
     for attr in opts:
         attributes[attr] = getattr(molobject, attr, None)
 
@@ -144,8 +143,7 @@ def mol_removeh(molobject):
     """
     Remove hydrogens from the structure
     """
-    print(
-        'Remove hydrogen atoms from structure: {0}'.format(molobject.title))
+    print('Remove hydrogen atoms from structure: {0}'.format(molobject.title))
     molobject.removeh()
 
     return molobject
