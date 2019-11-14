@@ -23,9 +23,11 @@ import sys
 if sys.version_info.major == 2:
     from cStringIO import StringIO
     import urllib2
+    from urllib2 import URLError
 else:
     from io import StringIO
-    import urllib as urllib2
+    import urllib.request as urllib2
+    from urllib.error import URLError
 
 try:
     import Tkinter as tk
@@ -282,7 +284,7 @@ class Molecule(object):
         elif format == "names":
             try:
                 output = nci(_quo(self.smiles), "%s" % format).rstrip().split("\n")
-            except urllib2.URLError as e:
+            except URLError as e:
                 if e.code == 404:
                     output = []
         elif format in ['inchi', 'inchikey']:
@@ -292,7 +294,7 @@ class Molecule(object):
             format = format + "_name"
             try:
                 output = nci(_quo(self.smiles), "%s" % format).rstrip()
-            except urllib2.URLError as e:
+            except URLError as e:
                 if e.code == 404:
                     output = ""
         else:
