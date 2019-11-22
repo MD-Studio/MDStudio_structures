@@ -6,6 +6,7 @@ file: wamp_services.py
 WAMP service methods the module exposes.
 """
 
+import sys
 import os
 import tempfile
 
@@ -13,7 +14,6 @@ from autobahn.wamp import RegisterOptions
 from mdstudio.api.endpoint import endpoint
 from mdstudio.component.session import ComponentSession
 
-from StringIO import StringIO
 from Bio.PDB import PDBList
 from Bio.PDB.PDBIO import PDBIO
 from Bio.PDB.PDBParser import PDBParser
@@ -22,6 +22,12 @@ from MDStudio_structures import toolkits
 from MDStudio_structures.cheminfo_wamp.cheminfo_descriptors_wamp import CheminfoDescriptorsWampApi
 from MDStudio_structures.cheminfo_wamp.cheminfo_molhandle_wamp import CheminfoMolhandleWampApi
 from MDStudio_structures.cheminfo_wamp.cheminfo_fingerprints_wamp import CheminfoFingerprintsWampApi
+
+# Library and function compatibility
+if sys.version_info[0] < 3:
+    from cStringIO import StringIO
+else:
+    from io import StringIO
 
 
 class StructuresWampApi(
