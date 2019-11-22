@@ -156,14 +156,6 @@ from retrying import retry
 # Cheminformatics packages supported by cheminfo, the order matters!
 SUPPORTED_PACKAGES = ('webel', 'silverwebel', 'pybel', 'jchem', 'cdk', 'indy', 'opsin', 'rdk', 'pydpi')
 
-# Environment variable hack for Travis testing
-print('BEFORE: ', os.environ)
-if 'CLASSPATH' not in os.environ:
-    home = os.environ['HOME']
-    os.environ['CLASSPATH'] = '{0}/cdk-2.1.1.jar:{0}/opsin-1.3.0-jar-with-dependencies.jar'.format(home)
-if 'JPYPE_JVM' not in os.environ:
-    os.environ['JPYPE_JVM'] = '/usr/local/jre/lib/amd64/server/libjvm.so'
-print('After: ', os.environ)
 
 def retry_if_Index_Exception(exception):
     """
