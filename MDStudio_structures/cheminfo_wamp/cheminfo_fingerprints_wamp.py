@@ -10,8 +10,8 @@ import os
 import numpy
 import pandas
 
-from MDStudio_structures.cheminfo_molhandle import mol_read, mol_validate_file_object
-from MDStudio_structures.cheminfo_fingerprint import mol_fingerprint_cross_similarity
+from mdstudio_structures.cheminfo_molhandle import mol_read, mol_validate_file_object
+from mdstudio_structures.cheminfo_fingerprint import mol_fingerprint_cross_similarity
 
 
 class CheminfoFingerprintsWampApi(object):

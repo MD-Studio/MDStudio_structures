@@ -1,11 +1,11 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-# package: MDStudio_docking
+# package: mdstudio_structures
 # file: setup.py
 #
-# Part of ‘MDStudio_docking’, a package providing molecular docking functionality
-# for the MDStudio package.
+# Part of ‘MDStudio_structures’, a package providing molecular structure conversion
+# and information fucntionality for the MDStudio package.
 #
 # Copyright © 2016 Marc van Dijk, VU University Amsterdam, the Netherlands
 #
@@ -23,7 +23,7 @@
 
 from setuptools import setup, find_packages
 
-distribution_name = 'MDStudio_structures'
+distribution_name = 'mdstudio_structures'
 
 setup(
     name=distribution_name,

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-package:  MDStudio_structures
+package:  mdstudio_structures
 LIEStudio small molecule cheminformatics functions
 """
 # Pandas and Openbabel share a common json library name

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Python function for MDStudio_structures module, run as:
+Python function for mdstudio_structures module, run as:
 ::
     test = module_test_suite()
     runner = unittest.TextTestRunner(verbosity=2)

@@ -6,10 +6,10 @@ Unit tests for fingerprint methods
 import unittest
 import scipy.spatial.distance as hr
 
-from MDStudio_structures.cheminfo_fingerprint import (available_fingerprints, mol_fingerprint_comparison,
+from mdstudio_structures.cheminfo_fingerprint import (available_fingerprints, mol_fingerprint_comparison,
                                                  mol_fingerprint_pairwise_similarity,
                                                  mol_fingerprint_cross_similarity)
-from MDStudio_structures.cheminfo_molhandle import mol_read
+from mdstudio_structures.cheminfo_molhandle import mol_read
 
 AVAIL_FPS = available_fingerprints()
 

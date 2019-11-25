@@ -18,10 +18,10 @@ from Bio.PDB import PDBList
 from Bio.PDB.PDBIO import PDBIO
 from Bio.PDB.PDBParser import PDBParser
 
-from MDStudio_structures import toolkits
-from MDStudio_structures.cheminfo_wamp.cheminfo_descriptors_wamp import CheminfoDescriptorsWampApi
-from MDStudio_structures.cheminfo_wamp.cheminfo_molhandle_wamp import CheminfoMolhandleWampApi
-from MDStudio_structures.cheminfo_wamp.cheminfo_fingerprints_wamp import CheminfoFingerprintsWampApi
+from mdstudio_structures import toolkits
+from mdstudio_structures.cheminfo_wamp.cheminfo_descriptors_wamp import CheminfoDescriptorsWampApi
+from mdstudio_structures.cheminfo_wamp.cheminfo_molhandle_wamp import CheminfoMolhandleWampApi
+from mdstudio_structures.cheminfo_wamp.cheminfo_fingerprints_wamp import CheminfoFingerprintsWampApi
 
 # Library and function compatibility
 if sys.version_info[0] < 3:
@@ -87,9 +87,9 @@ class StructuresWampApi(
         Query available toolkits.
 
         For a detailed input description see the file:
-           MDStudio_structures/schemas/endpoints/supported_toolkits_request_v1.json
+           mdstudio_structures/schemas/endpoints/supported_toolkits_request_v1.json
         And for a detailed description of the output see:
-           MDStudio_structures/schemas/endpoints/supported_toolkits_response_v1.json
+           mdstudio_structures/schemas/endpoints/supported_toolkits_response_v1.json
         """
         return {'status': 'completed', 'toolkits': toolkits.keys()}
 
@@ -100,9 +100,9 @@ class StructuresWampApi(
         Remove residues from a PDB structure
 
         For a detailed input description see the file:
-           MDStudio_structures/schemas/endpoints/removed_residues_request_v1.json
+           mdstudio_structures/schemas/endpoints/removed_residues_request_v1.json
         And for a detailed description of the output see:
-           MDStudio_structures/schemas/endpoints/removed_residues_response_v1.json
+           mdstudio_structures/schemas/endpoints/removed_residues_response_v1.json
         """
         request['workdir'] = os.path.abspath(request['workdir'])
         # Parse the structure
@@ -147,9 +147,9 @@ class StructuresWampApi(
         Download a structure file from the RCSB database using a PDB ID
 
         For a detailed input description see the file:
-           MDStudio_structures/schemas/endpoints/retrieve_rcsb_structures_request_v1.json
+           mdstudio_structures/schemas/endpoints/retrieve_rcsb_structures_request_v1.json
         And for a detailed description of the output see:
-           MDStudio_structures/schemas/endpoints/retrieve_rcsb_structures_response_v1.json
+           mdstudio_structures/schemas/endpoints/retrieve_rcsb_structures_response_v1.json
         """
         # Create workdir and save file
         request['workdir'] = os.path.abspath(request['workdir'])

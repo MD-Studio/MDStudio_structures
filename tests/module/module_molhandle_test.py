@@ -8,8 +8,8 @@ import os
 import pybel
 import unittest
 
-from MDStudio_structures.cheminfo_pkgmanager import CinfonyPackageManager
-from MDStudio_structures.cheminfo_molhandle import mol_addh, mol_make3D, mol_read, mol_removeh, mol_write
+from mdstudio_structures.cheminfo_pkgmanager import CinfonyPackageManager
+from mdstudio_structures.cheminfo_molhandle import mol_addh, mol_make3D, mol_read, mol_removeh, mol_write
 
 toolkits = CinfonyPackageManager({})
 
