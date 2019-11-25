@@ -91,7 +91,7 @@ class StructuresWampApi(
         And for a detailed description of the output see:
            mdstudio_structures/schemas/endpoints/supported_toolkits_response_v1.json
         """
-        return {'status': 'completed', 'toolkits': toolkits.keys()}
+        return {'status': 'completed', 'toolkits': list(toolkits.keys())}
 
     @endpoint('remove_residues', 'remove_residues_request', 'remove_residues_response',
               options=RegisterOptions(invoke=u'roundrobin'))
