@@ -1,4 +1,4 @@
-# MDStudio_structures
+# MDStudio Structures
 
 [![Build Status](https://travis-ci.org/MD-Studio/MDStudio_structures.svg?branch=master)](https://travis-ci.org/MD-Studio/MDStudio_structures)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/3c054785c5da46dfaad6dc3443d5653f)](https://www.codacy.com/manual/marcvdijk/MDStudio_structures?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=MD-Studio/MDStudio_structures&amp;utm_campaign=Badge_Grade)
