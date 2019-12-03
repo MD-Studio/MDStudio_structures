@@ -24,14 +24,16 @@ ENV CLASSPATH=/home/mdstudio/cdk-2.1.1.jar:/home/mdstudio/opsin-1.3.0-jar-with-d
 
 ENV JPYPE_JVM=/usr/local/jre/lib/amd64/server/libjvm.so
 
-COPY . /home/mdstudio/MDStudio_structures
+COPY . /home/mdstudio/mdstudio_structures
 
-RUN chown mdstudio:mdstudio /home/mdstudio/MDStudio_structures
+RUN chown mdstudio:mdstudio /home/mdstudio/mdstudio_structures
 
-WORKDIR /home/mdstudio/MDStudio_structures
+WORKDIR /home/mdstudio/mdstudio_structures
 
-RUN pip install -e mdstudio_cinfony/
+RUN pip install -e MDStudio_cinfony/
 
 RUN pip install -e .
+
+USER mdstudio
 
 CMD ["bash", "entry_point_MDStudio_structures.sh"]
