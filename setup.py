@@ -27,7 +27,7 @@ distribution_name = 'mdstudio_structures'
 
 setup(
     name=distribution_name,
-    version=0.2,
+    version=1.0,
     description='MDStudio structure based cheminformatics tools',
     author="""
     Marc van Dijk - VU University - Amsterdam
@@ -40,6 +40,7 @@ setup(
     platforms=['Any'],
     packages=find_packages(),
     py_modules=[distribution_name],
+    package_data={distribution_name: ['schemas/*', 'schemas/endpoints/*']},
     install_requires=['biopython', 'cinfony==1.2', 'pandas', 'Pillow', 'retrying', 'scipy', 'JPype1==0.6.3', 'pydpi'],
     extras_require={'test': ['unittest2', 'numpy']},
     dependency_links=["https://github.com/cinfony/cinfony/tarball/master#egg=cinfony-1.2"],
