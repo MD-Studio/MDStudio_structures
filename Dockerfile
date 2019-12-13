@@ -30,7 +30,7 @@ RUN chown mdstudio:mdstudio /home/mdstudio/MDStudio_structures
 
 WORKDIR /home/mdstudio/MDStudio_structures
 
-RUN pip install -e mdstudio_cinfony/
+RUN pip install -e MDStudio_cinfony/
 
 RUN pip install -e .
 
